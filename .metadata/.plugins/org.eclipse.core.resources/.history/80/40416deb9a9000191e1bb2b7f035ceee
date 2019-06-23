@@ -1,0 +1,70 @@
+package br.com.concessionaria.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+
+import br.com.concessionaria.factory.DAOFactory;
+import br.com.concessionaria.infra.ConexaoDAO;
+import br.com.concessionaria.infra.InterfaceDAO;
+import br.com.concessionaria.vo.ClienteAutomovelVO;
+
+public class ClienteAutomovelDAO implements InterfaceDAO<ClienteAutomovelVO>{
+	
+	private PreparedStatement stmt = null;
+	private ResultSet res = null;
+	private Connection conn = ConexaoDAO.getConn();
+	StringBuilder sql = new StringBuilder();
+
+	@Override
+	public void inserir(ClienteAutomovelVO t) {
+		try {
+			//Montando a query sql
+				sql.append("INSERT INTO CLIENTE_AUTOMOVEL ");
+				sql.append("([DES_CHASSI],[NUM_CPF_CLIENTE],");
+				sql.append("[DES_PLACA],[DTA_FIM])");
+				sql.append("VALUES (?,?,?,?)");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, t.getChassi());
+				stmt.setString(2, t.getClienteCPF());
+				stmt.setString(3, t.getPlaca());
+				stmt.setString(4, t.getDataFim());
+				stmt.executeUpdate();
+			
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar inserir a relaçao Cliente-Automóvel.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+	}
+
+	@Override
+	public void alterar(int id, String chave) {
+		ClienteAutomovelVO cliAuto = DAOFactory.createClienteAutomovelDAO().consultar(0, CPF);
+		
+	}
+
+	@Override
+	public void excluir(int id, String chave) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ClienteAutomovelVO consultar(int id, String chave) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ClienteAutomovelVO> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

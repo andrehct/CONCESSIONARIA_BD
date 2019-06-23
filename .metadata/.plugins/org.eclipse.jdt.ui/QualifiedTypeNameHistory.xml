@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.io.Console"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.AutomovelDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.CargoVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.CargoDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.ClienteAutomovelDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.ClienteDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.CorDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.FuncionarioSalarioDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.FuncVendaAutoDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.MarcaDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.ModeloDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.RevisaoDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.SeguradoraDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.SeguroAutomovelDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.SeguroDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.dao.TipoAutomovelDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.infra.InterfaceDAO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.ClienteVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.CorVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.FuncionarioSalarioVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.FuncVendaAutoVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.MarcaVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.ModeloVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.RevisaoVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.SeguradoraVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.factory.DAOFactory"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.SeguroAutomovelVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.SeguroVO"/>
+    <fullyQualifiedTypeName name="br.com.concessionaria.vo.TipoAutomovelVO"/>
+</qualifiedTypeNameHistroy>

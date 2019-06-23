@@ -42,7 +42,8 @@ public class FuncionarioController extends HttpServlet {
 		String acao = request.getParameter("botao");
 		
 		if(acao.equals("Enviar")) {
-			String _nome = request.getParameter("nome");
+			//INSERT FUNC
+			/*String _nome = request.getParameter("nome");
 			String _cpf = request.getParameter("cpf");
 			String _dataCon = request.getParameter("contratacao");
 			String _dataNasc = request.getParameter("nascimento");
@@ -51,7 +52,9 @@ public class FuncionarioController extends HttpServlet {
 			String _ende = request.getParameter("endereco");
 			String _rg = request.getParameter("rg");
 			func = new FuncionarioVO(_cpf, _nome, _ende, _dataNasc, _rg, _dataCon, Integer.parseInt(_cargo), Integer.parseInt(_nivel));
-			DAOFactory.createFuncionarioDAO().inserir(func);
+			//DAOFactory.createFuncionarioDAO().inserir(func);*/
+			//SELECT FUNC
+			DAOFactory.createFuncionarioDAO().consultar(0, "06329839140");
 			response.sendRedirect("index.jsp");
 		}
 		else

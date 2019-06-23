@@ -15,12 +15,18 @@ public class ConexaoDAO {
 
 	public static void liberaConexao(Connection conexao, PreparedStatement pstmt, ResultSet rs) {
 		try {
-			if(rs != null)
+			if(rs != null) {
 				rs.close();
-			if(pstmt != null)
+				System.out.println("ResultSet Fechado");
+			}
+			if(pstmt != null) {
 				pstmt.close();
-			if(conexao != null)
+				System.out.println("PreparedStatement Fechado");
+			}
+			if(conexao != null) {
 				conexao.close();
+				System.out.println("Conexão Fechada");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

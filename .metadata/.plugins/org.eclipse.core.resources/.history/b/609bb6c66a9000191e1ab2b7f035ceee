@@ -1,0 +1,154 @@
+package br.com.concessionaria.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import br.com.concessionaria.infra.ConexaoDAO;
+import br.com.concessionaria.infra.InterfaceDAO;
+import br.com.concessionaria.vo.FuncionarioVO;
+
+public class FuncionarioDAO implements InterfaceDAO<FuncionarioVO>{
+	
+	
+	private PreparedStatement stmt = null;
+	private ResultSet res = null;
+	private Connection conn = ConexaoDAO.getConn();
+	StringBuilder sql = new StringBuilder();
+	
+	@Override
+	public void inserir(FuncionarioVO funcionarioVO) {
+		try {
+			//Montando a query sql
+				sql.append("INSERT INTO FUNCIONARIO ");
+				sql.append("([NUM_CPF],[NOM_FUNCIONARIO],[DES_ENDERECO],");
+				sql.append("[DTA_NASCIMENTO],[NUM_RG],");
+				sql.append("[DTA_CONTRATACAO],[ID_CARGO],[NUM_NIVEL])");
+				sql.append("VALUES (?,?,?,?,?,?,?,?)");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, funcionarioVO.getCPF());
+				stmt.setString(2, funcionarioVO.getNome());
+				stmt.setString(3, funcionarioVO.getEndereco());
+				stmt.setString(4, funcionarioVO.getDataNascimento());
+				stmt.setString(5, funcionarioVO.getRg());
+				stmt.setString(6, funcionarioVO.getDataContratacao());
+				stmt.setString(7, Integer.toString(funcionarioVO.getIdCargo()));
+				stmt.setString(8, Integer.toString(funcionarioVO.getNivel()));
+			//Executando a query no banco
+				stmt.executeUpdate();
+			
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar inserir o funcionário.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+	}
+
+	@Override
+	public void alterar(int id, String CPF, FuncionarioVO funcionarioVO) {
+		try {
+			//Montando a query sql				
+				sql.append("UPDATE FUNCIONARIO SET ");
+				sql.append("[NUM_CPF] = ?,");
+				sql.append("[NOM_FUNCIONARIO] = ?,");
+				sql.append("[DES_ENDERECO] = ?,");
+				sql.append("[DTA_NASCIMENTO] = ?,");
+				sql.append("[NUM_RG] = ?,");
+				sql.append("[DTA_CONTRATACAO] = ?,");
+				sql.append("[ID_CARGO] = ?,");
+				sql.append("[NUM_NIVEL] = ? ");
+				sql.append("WHERE [NUM_CPF] = ?");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, funcionarioVO.getCPF());
+				stmt.setString(2, funcionarioVO.getNome());
+				stmt.setString(3, funcionarioVO.getEndereco());
+				stmt.setString(4, funcionarioVO.getDataNascimento());
+				stmt.setString(5, funcionarioVO.getRg());
+				stmt.setString(6, funcionarioVO.getDataContratacao());
+				stmt.setString(7, Integer.toString(funcionarioVO.getIdCargo()));
+				stmt.setString(8, Integer.toString(funcionarioVO.getNivel()));
+				stmt.setString(9, CPF);
+			//Executando a query no banco
+				stmt.executeUpdate();
+			
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar alterar os dados do funcionário.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+	}
+
+	@Override
+	public void excluir(int id, String CPF) {
+		try {
+			//Montando a query sql				
+				sql.append("DELETE FROM FUNCIONARIO ");
+				sql.append("WHERE [NUM_CPF] = ?");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, CPF);
+			//Executando a query no banco
+				stmt.executeUpdate();
+			
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar excluir o funcionário.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+	}
+
+	@Override
+	public FuncionarioVO consultar(int id, String CPF) {
+		FuncionarioVO func = new FuncionarioVO();
+		try {
+			//Montando a query sql				
+				sql.append("SELECT ");
+				sql.append("[NUM_CPF],");
+				sql.append("[NOM_FUNCIONARIO],");
+				sql.append("[DES_ENDERECO],");
+				sql.append("[DTA_NASCIMENTO],");
+				sql.append("[NUM_RG],");
+				sql.append("[DTA_CONTRATACAO],");
+				sql.append("[ID_CARGO],");
+				sql.append("[NUM_NIVEL] FROM FUNCIONARIO ");
+				sql.append("WHERE [NUM_CPF] = ?");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, CPF);
+			//Executando a query no banco
+				res = stmt.executeQuery();
+				System.out.println("aq deu");
+				func.setCPF(res.getString("NUM_CPF"));
+				func.setNome(res.getString("NOM_FUNCIONARIO"));
+				System.out.println("CPF = " + func.getCPF() + "\n nome = " + func.getNome());
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar dados do funcionário.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return func;
+	}
+
+	@Override
+	public List<FuncionarioVO> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
