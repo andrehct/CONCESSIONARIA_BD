@@ -1,0 +1,26 @@
+<%@page import="br.com.concessionaria.factory.DAOFactory"%>
+<%@page import="br.com.concessionaria.vo.FuncionarioVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%List<FuncionarioVO> lista = DAOFactory.createFuncionarioDAO().listar();%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>::: Lista de Funcionários :::</title>
+<%@ include file="../menu.jsp" %>
+</head>
+<body>
+    <br/> 
+      <a href="inserir.jsp" class="waves-effect waves-light btn-small"><i class="material-icons left">control_point</i>Cadastrar Funcionário</a>
+    <br/>
+    <%for(FuncionarioVO f : lista){%>
+	<div class="collection">
+        <a href="#!" class="collection-item"><%=f.getCPF()%></a>
+        <a href="#!" class="collection-item active"><%=f.getNome()%></a>
+        <a href="#!" class="collection-item">Alvin</a>
+        <a href="#!" class="collection-item">Alvin</a>
+      </div>
+    <%}%>
+</body>
+</html>

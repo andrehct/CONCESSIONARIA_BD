@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>::: Lista de Funcionários :::</title>
+<%@ include file="../menu.jsp" %>
+</head>
+<body>
+    <br/> 
+      <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+    <br/>
+	<div class="collection">
+        <a href="#!" class="collection-item">Alvin</a>
+        <a href="#!" class="collection-item active">Alvin</a>
+        <a href="#!" class="collection-item">Alvin</a>
+        <a href="#!" class="collection-item">Alvin</a>
+      </div>
+
+</body>
+</html>

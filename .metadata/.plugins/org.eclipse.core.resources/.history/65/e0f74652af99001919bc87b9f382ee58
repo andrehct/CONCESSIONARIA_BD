@@ -1,0 +1,12 @@
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+		<%@ include file="menu.jsp" %>
+    </head>
+
+    <body>
+    
+      
+    </body>
+  </html>

@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.factory.DAOFactory;
@@ -125,8 +126,30 @@ public class TipoAutomovelDAO implements InterfaceDAO<TipoAutomovelVO>{
 
 	@Override
 	public List<TipoAutomovelVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<TipoAutomovelVO> aux = new ArrayList<TipoAutomovelVO>();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM TIPO_AUTOMOVEL");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					TipoAutomovelVO el = new TipoAutomovelVO(res.getString("NOM_TPAUTO"),res.getInt("ID_TPAUTO"));
+					aux.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar todos os dados do tipo de automóvel.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return aux;
 	}
 
 }

@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.infra.ConexaoDAO;
@@ -118,15 +119,8 @@ public class FuncionarioDAO implements InterfaceDAO<FuncionarioVO>{
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("SELECT ");
-				sql.append("[NUM_CPF],");
-				sql.append("[NOM_FUNCIONARIO],");
-				sql.append("[DES_ENDERECO],");
-				sql.append("[DTA_NASCIMENTO],");
-				sql.append("[NUM_RG],");
-				sql.append("[DTA_CONTRATACAO],");
-				sql.append("[ID_CARGO],");
-				sql.append("[NUM_NIVEL] FROM FUNCIONARIO ");
+				sql.append("SELECT * ");
+				sql.append("FROM FUNCIONARIO ");
 				sql.append("WHERE [NUM_CPF] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
@@ -144,6 +138,7 @@ public class FuncionarioDAO implements InterfaceDAO<FuncionarioVO>{
 				func.setIdCargo(res.getInt("ID_CARGO"));
 				func.setNivel(res.getInt("NUM_NIVEL"));
 				func.setRg(res.getString("NUM_RG"));
+				func.setFoto(res.getString("ARQ_FOTO"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados do funcionário.");
 			ex.printStackTrace();
@@ -157,8 +152,39 @@ public class FuncionarioDAO implements InterfaceDAO<FuncionarioVO>{
 
 	@Override
 	public List<FuncionarioVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<FuncionarioVO> func = new ArrayList<FuncionarioVO>();
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM FUNCIONARIO");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					FuncionarioVO el = new FuncionarioVO();
+					
+					el.setCPF(res.getString("NUM_CPF"));
+					el.setNome(res.getString("NOM_FUNCIONARIO"));
+					el.setDataContratacao(res.getString("DTA_CONTRATACAO"));
+					el.setDataNascimento(res.getString("DTA_NASCIMENTO"));
+					el.setEndereco(res.getString("DES_ENDERECO"));
+					el.setIdCargo(res.getInt("ID_CARGO"));
+					el.setNivel(res.getInt("NUM_NIVEL"));
+					el.setRg(res.getString("NUM_RG"));
+					
+					func.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar dados do funcionário.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return func;
 	}
 
 }

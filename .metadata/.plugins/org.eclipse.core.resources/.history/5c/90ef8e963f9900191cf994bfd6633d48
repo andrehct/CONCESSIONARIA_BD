@@ -1,0 +1,148 @@
+package br.com.concessionaria.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
+
+import br.com.concessionaria.factory.DAOFactory;
+import br.com.concessionaria.infra.ConexaoDAO;
+import br.com.concessionaria.infra.InterfaceDAO;
+import br.com.concessionaria.vo.ModeloVO;
+
+public class ModeloDAO implements InterfaceDAO<ModeloVO>{
+	
+	private PreparedStatement stmt = null;
+	private ResultSet res = null;
+	private Connection conn = ConexaoDAO.getConn();
+	StringBuilder sql = new StringBuilder();
+
+	@Override
+	public void inserir(ModeloVO t) {
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("INSERT INTO MODELO ");
+				sql.append("([NOM_MODELO], [ID_MARCA], [NUM_ANO]) ");
+				sql.append("VALUES (?,?,?)");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, t.getNomeModelo());
+				stmt.setString(1, Integer.toString(t.getIdMarca()));
+				stmt.setString(1, Integer.toString(t.getAno()));
+			//Executando a query no banco
+				stmt.executeUpdate();
+			
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar inserir o modelo.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+	}
+
+	@Override
+	public void alterar(ModeloVO t, String... chave) {
+		//chave [0] = nome
+		//chave [1] = marca
+		//chave [3] = ano
+		ModeloVO aux = DAOFactory.createModeloDAO().consultar(t.getNomeModelo());
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("UPDATE MODELO SET ");
+				sql.append("[NOM_MODELO] = ?,");
+				sql.append("[ID_MARCA] = ?,");
+				sql.append("[NUM_ANO] = ? ");
+				sql.append("WHERE [ID_MODELO] = ? AND [ID_MARCA] = ?");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, chave[0]);
+				stmt.setString(2, chave[1]);
+				stmt.setString(3, chave[2]);
+				stmt.setString(4, Integer.toString(aux.getIdModelo()));
+				stmt.setString(5, Integer.toString(aux.getIdMarca()));
+			//Executando a query no banco
+				stmt.executeUpdate();
+			
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar alterar os dados do modelo.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+	}
+
+	@Override
+	public void excluir(String... chave) {
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("DELETE FROM MODELO ");
+				sql.append("WHERE [NOM_MODELO] = ?");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, chave[0]);
+			//Executando a query no banco
+				stmt.executeUpdate();
+			
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar excluir o modelo.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+	}
+
+	@Override
+	public ModeloVO consultar(String... chave) {
+		
+		//chave[0] vai ter o novo nome do modelo
+		
+		ModeloVO modelo = new ModeloVO();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT ");
+				sql.append("[ID_MODELO],");
+				sql.append("[NOM_MODELO],");
+				sql.append("[ID_MARCA],");
+				sql.append("[NUM_ANO] FROM MODELO ");
+				sql.append("WHERE NOM_MODELO = ?");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, chave[0]);
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				res.next();
+			//atualizando modelo com o id obtido
+				modelo.setIdModelo(res.getInt("ID_MODELO"));
+				modelo.setIdMarca(res.getInt("ID_MARCA"));
+				modelo.setAno(res.getInt("NUM_ANO"));
+				modelo.setNomeModelo(chave[0]);
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar dados do modelo.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return modelo;
+	}
+
+	@Override
+	public List<ModeloVO> listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

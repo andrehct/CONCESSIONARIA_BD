@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.infra.ConexaoDAO;
@@ -152,8 +153,38 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 
 	@Override
 	public List<SeguroAutomovelVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<SeguroAutomovelVO> aux = new ArrayList<SeguroAutomovelVO>();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM SEGURO_AUTOMOVEL");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					SeguroAutomovelVO el = new SeguroAutomovelVO();
+					
+					el.setChassi(res.getString("DES_CHASSI"));
+					el.setIdSeguradora(res.getInt("ID_SEGURADORA"));
+					el.setIdSeguro(res.getInt("ID_SEGURO"));
+					el.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
+					el.setDataContrato(res.getString("DTA_CONTRATO"));
+					
+					aux.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar todos dados do seguro automovel.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return aux;
 	}
 
 }

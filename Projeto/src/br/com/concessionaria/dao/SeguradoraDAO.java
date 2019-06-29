@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.factory.DAOFactory;
@@ -138,8 +139,36 @@ public class SeguradoraDAO implements InterfaceDAO<SeguradoraVO>{
 
 	@Override
 	public List<SeguradoraVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<SeguradoraVO> seg = new ArrayList<SeguradoraVO>();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM SEGURADORA");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					SeguradoraVO el =  new SeguradoraVO();
+					
+					el.setEndereco(res.getString("DES_ENDERECO"));
+					el.setIdSeg(res.getInt("ID_SEGURADORA"));
+					el.setNomeSeguradora(res.getString("NOM_SEGURADORA"));
+					el.setTelefone(res.getString("NUM_TELEFONE"));
+					
+					seg.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar todos os dados da seguradora.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return seg;
 	}
 
 }

@@ -3,3 +3,7 @@
 1561295835303	Encapsulate field 'idSeg'
 1561300028537	Encapsulate field 'idSeguro'
 1561305073038	Encapsulate field 'idTPAuto'
+1561674137116	Delete element
+1561730475306	Move 'menu.jsp' to 'WebContent'
+1561731242449	Move 'css' to 'WebContent'
+1561731245141	Move 'js' to 'WebContent'

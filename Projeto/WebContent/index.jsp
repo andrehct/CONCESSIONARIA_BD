@@ -1,74 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+  <!DOCTYPE html>
+  <html>
+    <head>
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+		
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<header>
+		 <nav>
+		  <div class="nav-wrapper">
+		    <a href="#" class="brand-logo">Logo</a>
+		    <ul id="nav-mobile" class="right hide-on-med-and-down">
+		      <li><a href="FuncionarioController">Funcionário</a></li>
+		      <li><a href="badges.html">Components</a></li>
+		      <li><a href="collapsible.html">JavaScript</a></li>
+		    </ul>
+		  </div>
+		</nav>
+		</header>
+		
+		<!--JavaScript at end of body for optimized loading-->
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+    </head>
 
-<h1>TESTE</h1>
-
-<form action="FuncionarioController" name="form1" method="post">
-	<table>
-		<tr>
-		<td>
-			<label>NOME: </label>
-			<input type="text" name="nome">
-		</td>
-		</tr>
-		<tr>
-			<td>
-				<label>CPF: </label>
-				<input type="text" name="cpf">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>DATA DE NASCIMENTO: </label>
-				<input type="text" name="nascimento">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>DATA DE CONTRATACAO: </label>
-				<input type="text" name="contratacao">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>NIVEL: </label>
-				<input type="text" name="nivel">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>RG: </label>
-				<input type="text" name="rg">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>ENDERECO: </label>
-				<input type="text" name="endereco">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>CARGO: </label>
-				<input type="text" name="cargo">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<br/>
-				<input type="submit" name="botao" value="Enviar">
-			</td>
-		</tr>
-	</table>
-</form>
-
-</body>
-</html>
+    <body>
+    
+      
+    </body>
+  </html>

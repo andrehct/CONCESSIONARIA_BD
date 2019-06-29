@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.infra.InterfaceDAO;
@@ -21,7 +22,7 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("INSERT INTO FUNCIONARIO ");
+				sql.append("INSERT INTO AUTOMOVEL ");
 				sql.append("([DES_CHASSI],[VAL_PRECO],[ID_TPAUTO],");
 				sql.append("[ID_MODELO],[ID_COR],[ID_MARCA]) ");
 				sql.append("VALUES (?,?,?,?,?,?)");
@@ -72,7 +73,7 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 				stmt.executeUpdate();
 			
 		}catch(Exception ex) {
-			System.out.println("Erro ao tentar alterar os dados do funcionário.");
+			System.out.println("Erro ao tentar alterar os dados do automóvel.");
 			ex.printStackTrace();
 			
 		}finally {
@@ -145,8 +146,36 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 
 	@Override
 	public List<AutomovelVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<AutomovelVO> auto = new ArrayList<AutomovelVO>();
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM AUTOMOVEL");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					AutomovelVO el = new AutomovelVO();
+					
+					el.setChassi(res.getString("DES_CHASSI"));
+					el.setPreco(res.getFloat("VAL_PRECO"));
+					el.setIdCor(res.getInt("ID_COR"));
+					el.setIdMarca(res.getInt("ID_MARCA"));
+					el.setIdModelo(res.getInt("ID_MODELO"));
+					el.setIdTpAuto(res.getInt("ID_TPAUTO"));
+					
+					auto.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar dados dos automóveis.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		return auto;
 	}
 
 }

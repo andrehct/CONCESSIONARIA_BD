@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.infra.ConexaoDAO;
@@ -106,8 +107,33 @@ public class FuncVendaAutoDAO implements InterfaceDAO<FuncVendaAutoVO>{
 
 	@Override
 	public List<FuncVendaAutoVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<FuncVendaAutoVO> aux = new ArrayList<FuncVendaAutoVO>();
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM FUNCIONARIO_VENDA_AUTO");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					FuncVendaAutoVO el = new FuncVendaAutoVO();
+					
+					el.setChassi(res.getString("DES_CHASSI"));
+					el.setDataVenda(res.getString("DTA_VENDA"));
+					el.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
+					
+					aux.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar todos os dados da venda do automovel.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		return aux;
 	}
 
 }

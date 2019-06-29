@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.factory.DAOFactory;
@@ -141,8 +142,41 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 
 	@Override
 	public List<ModeloVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ModeloVO> modelo = new ArrayList<ModeloVO>();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM MODELO");
+				sql.append("[ID_MODELO],");
+				sql.append("[],");
+				sql.append("[],");
+				sql.append("[] FROM MODELO ");
+				sql.append("WHERE  = ?");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					ModeloVO el = new ModeloVO();
+					
+					el.setAno(res.getInt("NUM_ANO"));
+					el.setIdMarca(res.getInt("ID_MARCA"));
+					el.setIdModelo(res.getInt("ID_MODELO"));
+					el.setNomeModelo(res.getString("NOM_MODELO"));
+					
+					modelo.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar dados do modelo.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return modelo;
 	}
 
 }

@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.factory.DAOFactory;
@@ -126,8 +127,34 @@ public class CargoDAO implements InterfaceDAO<CargoVO>{
 
 	@Override
 	public List<CargoVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<CargoVO> cargo = new ArrayList<CargoVO>();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM CARGO");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					CargoVO el = new CargoVO();
+					
+					el.setIdCargo(res.getInt("ID_CARGO"));
+					el.setNomeCargo(res.getString("NOM_CARGO"));
+					
+					cargo.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar dados dos cargos.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return cargo;
 	}
 
 }

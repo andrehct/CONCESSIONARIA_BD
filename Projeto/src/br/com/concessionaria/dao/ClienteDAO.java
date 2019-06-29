@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.infra.ConexaoDAO;
@@ -141,8 +142,37 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 
 	@Override
 	public List<ClienteVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<ClienteVO> cli = new ArrayList<ClienteVO>();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM CLIENTE");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					ClienteVO el = new ClienteVO();
+					
+					el.setCpf(res.getString("NUM_CPF"));
+					el.setNome(res.getString("NOM_CLIENTE"));
+					el.setDataNascimento(res.getString("DTA_NASCIMENTO"));
+					el.setEndereco(res.getString("DES_ENDERECO"));
+					el.setRg(res.getString("NUM_RG"));
+					
+					cli.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar dados dos clientes.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return cli;
 	}
 
 }

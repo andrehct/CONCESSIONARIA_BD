@@ -30,4 +30,5 @@
     <fullyQualifiedTypeName name="br.com.concessionaria.vo.SeguroAutomovelVO"/>
     <fullyQualifiedTypeName name="br.com.concessionaria.vo.SeguroVO"/>
     <fullyQualifiedTypeName name="br.com.concessionaria.vo.TipoAutomovelVO"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>

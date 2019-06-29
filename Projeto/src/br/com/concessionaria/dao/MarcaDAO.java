@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.factory.DAOFactory;
@@ -126,8 +127,34 @@ public class MarcaDAO implements InterfaceDAO<MarcaVO>{
 
 	@Override
 	public List<MarcaVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<MarcaVO> marca = new ArrayList<MarcaVO>();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM MARCA");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					MarcaVO el = new MarcaVO();
+					
+					el.setIdMarca(res.getInt("ID_MARCA"));
+					el.setNomeMarca(res.getString("NOM_MARCA"));
+					
+					marca.add(el);
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar todos os dados da marca.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return marca;
 	}
 
 }

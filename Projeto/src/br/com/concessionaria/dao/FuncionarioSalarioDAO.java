@@ -3,6 +3,7 @@ package br.com.concessionaria.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.concessionaria.infra.ConexaoDAO;
@@ -137,8 +138,36 @@ public class FuncionarioSalarioDAO implements InterfaceDAO<FuncionarioSalarioVO>
 
 	@Override
 	public List<FuncionarioSalarioVO> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<FuncionarioSalarioVO> funcSal = new ArrayList<FuncionarioSalarioVO>();
+		
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM FUNCIONARIO_SALARIO");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				while(res.next()) {
+					FuncionarioSalarioVO el = new FuncionarioSalarioVO();
+					
+					el.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
+					el.setSalario(res.getFloat("VAL_SALARIO"));
+					el.setDataIni(res.getString("DTA_INICIO"));
+					
+					funcSal.add(el);
+					
+				}
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar todos os dados da relação funcionário-salário.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		
+		return funcSal;
 	}
 
 }
