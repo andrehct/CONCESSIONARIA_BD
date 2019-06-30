@@ -33,18 +33,6 @@
 		</tr>
 		<tr>
 			<td>
-				<label>ANO: </label>
-				<input type="text" name="ano" value="<%=auto.getAno()%>">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>MARCA: </label>
-				<input type="text" name="marca" value="<%=auto.getIdMarca()%>">
-			</td>
-		</tr>
-		<tr>
-			<td>
 				<label>PREÇO: </label>
 				<input type="text" name="preco" value="<%=auto.getPreco()%>">
 			</td>

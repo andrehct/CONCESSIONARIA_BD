@@ -55,15 +55,13 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 				sql.append("[NOM_MODELO] = ?,");
 				sql.append("[ID_MARCA] = ?,");
 				sql.append("[NUM_ANO] = ? ");
-				sql.append("WHERE [ID_MODELO] = ? AND [ID_MARCA] = ? AND [NUM_ANO] = ?");
+				sql.append("WHERE [ID_MODELO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getNomeModelo());
 				stmt.setString(2, Integer.toString(t.getIdMarca()));
 				stmt.setString(3, Integer.toString(t.getAno()));
 				stmt.setString(4, chave[0]);
-				stmt.setString(5, chave[1]);
-				stmt.setString(6, chave[2]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -80,18 +78,14 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 	@Override
 	public void excluir(String... chave) {
 		//chave [0] = idModelo
-		//chave [1] = idMarca
-		//chave [3] = ano
 		try {
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("DELETE FROM MODELO ");
-				sql.append("WHERE [ID_MODELO] = ? AND [ID_MARCA] = ? AND [NUM_ANO] = ?");
+				sql.append("WHERE [ID_MODELO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
-				stmt.setString(2, chave[1]);
-				stmt.setString(3, chave[2]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -109,8 +103,6 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 	public ModeloVO consultar(String... chave) {
 		
 		//chave [0] = idModelo
-		//chave [1] = idMarca
-		//chave [3] = ano
 		
 		ModeloVO modelo = new ModeloVO();
 		
@@ -118,12 +110,10 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("SELECT * FROM MODELO ");
-				sql.append("WHERE [ID_MODELO] = ? AND [ID_MARCA] = ? AND [NUM_ANO] = ?");
+				sql.append("WHERE [ID_MODELO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
-				stmt.setString(2, chave[1]);
-				stmt.setString(3, chave[2]);
 			//Executando a query no banco
 				res = stmt.executeQuery();
 			//Pegando a linha de resultado com o next

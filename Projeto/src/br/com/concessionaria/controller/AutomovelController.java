@@ -45,13 +45,11 @@ public class AutomovelController extends HttpServlet {
 			response.sendRedirect("automovel/listar.jsp");
 		}else if(acao.equals("INSERIR AUTOMOVEL")) {
 			String _chassi = request.getParameter("chassi");
-			String _marca = request.getParameter("marca");
 			String _tipo = request.getParameter("tipo");
 			String _modelo = request.getParameter("modelo");
 			String _preco = request.getParameter("preco");
 			String _cor = request.getParameter("cor");
-			String _ano = request.getParameter("ano");
-			automovel = new AutomovelVO(Integer.parseInt(_tipo), Integer.parseInt(_modelo), Integer.parseInt(_marca), Float.parseFloat(_preco), Integer.parseInt(_cor), _chassi, Integer.parseInt(_ano));
+			automovel = new AutomovelVO(Integer.parseInt(_tipo), Integer.parseInt(_modelo), Float.parseFloat(_preco), Integer.parseInt(_cor), _chassi);
 			DAOFactory.createAutomovelDAO().inserir(automovel);
 			response.sendRedirect("automovel/listar.jsp");
 		}else if(acao.equals("edit")) {
@@ -66,13 +64,11 @@ public class AutomovelController extends HttpServlet {
 		}else if(acao.equals("ALTERAR AUTOMOVEL")) {
 			String chassiIni = request.getParameter("chassiIni");
 			String _chassi = request.getParameter("chassi");
-			String _marca = request.getParameter("marca");
 			String _tipo = request.getParameter("tipo");
 			String _modelo = request.getParameter("modelo");
 			String _preco = request.getParameter("preco");
 			String _cor = request.getParameter("cor");
-			String _ano = request.getParameter("ano");
-			automovel = new AutomovelVO(Integer.parseInt(_tipo), Integer.parseInt(_modelo), Integer.parseInt(_marca), Float.parseFloat(_preco), Integer.parseInt(_cor), _chassi, Integer.parseInt(_ano));
+			automovel = new AutomovelVO(Integer.parseInt(_tipo), Integer.parseInt(_modelo), Float.parseFloat(_preco), Integer.parseInt(_cor), _chassi);
 			DAOFactory.createAutomovelDAO().alterar(automovel,chassiIni);
 			response.sendRedirect("automovel/listar.jsp");
 		}else{

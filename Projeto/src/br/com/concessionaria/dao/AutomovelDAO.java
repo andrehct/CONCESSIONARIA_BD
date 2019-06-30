@@ -24,8 +24,8 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 				sql.setLength(0);
 				sql.append("INSERT INTO AUTOMOVEL ");
 				sql.append("([DES_CHASSI],[VAL_PRECO],[ID_TPAUTO],");
-				sql.append("[ID_MODELO],[ID_COR],[ID_MARCA], [NUM_ANO]) ");
-				sql.append("VALUES (?,?,?,?,?,?,?)");
+				sql.append("[ID_MODELO],[ID_COR]) ");
+				sql.append("VALUES (?,?,?,?,?)");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getChassi());
@@ -33,8 +33,6 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 				stmt.setString(3, Integer.toString(t.getIdTpAuto()));
 				stmt.setString(4, Integer.toString(t.getIdModelo()));
 				stmt.setString(5, Integer.toString(t.getIdCor()));
-				stmt.setString(6, Integer.toString(t.getIdMarca()));
-				stmt.setString(7, Integer.toString(t.getAno()));
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -58,9 +56,7 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 				sql.append("[VAL_PRECO] = ?,");
 				sql.append("[ID_TPAUTO] = ?,");
 				sql.append("[ID_MODELO] = ?,");
-				sql.append("[ID_COR] = ?,");
-				sql.append("[NUM_ANO] = ?,");
-				sql.append("[ID_MARCA] = ? ");
+				sql.append("[ID_COR] = ? ");
 				sql.append("WHERE [DES_CHASSI] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
@@ -69,9 +65,7 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 				stmt.setString(3, Integer.toString(t.getIdTpAuto()));
 				stmt.setString(4, Integer.toString(t.getIdModelo()));
 				stmt.setString(5, Integer.toString(t.getIdCor()));
-				stmt.setString(6, Integer.toString(t.getAno()));
-				stmt.setString(7, Integer.toString(t.getIdMarca()));
-				stmt.setString(8, chave[0]);
+				stmt.setString(6, chave[0]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -114,15 +108,7 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("SELECT ");
-				sql.append("[DES_CHASSI],");
-				sql.append("[VAL_PRECO],");
-				sql.append("[ID_TPAUTO],");
-				sql.append("[ID_MODELO],");
-				sql.append("[ID_COR],");
-				sql.append("[NUM_ANO],");
-				sql.append("[ID_MARCA] ");
-				sql.append("FROM AUTOMOVEL ");
+				sql.append("SELECT * FROM AUTOMOVEL ");
 				sql.append("WHERE [DES_CHASSI] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
@@ -135,9 +121,7 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 				auto.setChassi(res.getString("DES_CHASSI"));
 				auto.setPreco(res.getFloat("VAL_PRECO"));
 				auto.setIdCor(res.getInt("ID_COR"));
-				auto.setIdMarca(res.getInt("ID_MARCA"));
 				auto.setIdModelo(res.getInt("ID_MODELO"));
-				auto.setAno(res.getInt("NUM_ANO"));
 				auto.setIdTpAuto(res.getInt("ID_TPAUTO"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados do automóvel.");
@@ -167,10 +151,8 @@ public class AutomovelDAO implements InterfaceDAO<AutomovelVO>{
 					el.setChassi(res.getString("DES_CHASSI"));
 					el.setPreco(res.getFloat("VAL_PRECO"));
 					el.setIdCor(res.getInt("ID_COR"));
-					el.setIdMarca(res.getInt("ID_MARCA"));
 					el.setIdModelo(res.getInt("ID_MODELO"));
 					el.setIdTpAuto(res.getInt("ID_TPAUTO"));
-					el.setAno(res.getInt("NUM_ANO"));
 					
 					auto.add(el);
 				}

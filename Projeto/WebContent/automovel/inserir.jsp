@@ -31,18 +31,6 @@
 		</tr>
 		<tr>
 			<td>
-				<label>ANO: </label>
-				<input type="text" name="ano">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>MARCA: </label>
-				<input type="text" name="marca">
-			</td>
-		</tr>
-		<tr>
-			<td>
 				<label>PREÇO: </label>
 				<input type="text" name="preco">
 			</td>

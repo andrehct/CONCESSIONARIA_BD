@@ -36,7 +36,7 @@ function remover(chassi){
     <%for(int i = 0; i < lista.size(); i++){%>
 	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
         <td><%=lista.get(i).getChassi()%></td>
-        <td><%=DAOFactory.createModeloDAO().consultar(Integer.toString(lista.get(i).getIdModelo()), Integer.toString(lista.get(i).getIdMarca()), Integer.toString(lista.get(i).getAno())).getNomeModelo()%></td>
+        <td><%=DAOFactory.createModeloDAO().consultar(Integer.toString(lista.get(i).getIdModelo())).getNomeModelo()%></td>
         <td><%=DAOFactory.createCorDAO().consultar(Integer.toString(lista.get(i).getIdCor())).getNomeCor()%></td>
         <td><%=DAOFactory.createTipoAutomovelDAO().consultar(Integer.toString(lista.get(i).getIdTpAuto())).getNome()%></td>
         <td>
