@@ -7,12 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.concessionaria.factory.DAOFactory;
+import br.com.concessionaria.vo.FuncionarioSalarioVO;
+
 /**
  * Servlet implementation class FuncionarioSalarioController
  */
 @WebServlet("/FuncionarioSalarioController")
 public class FuncionarioSalarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	FuncionarioSalarioVO funcSal;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -27,15 +32,48 @@ public class FuncionarioSalarioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String acao = request.getParameter("acao");
+		System.out.println("ACAO FUNCIONARIO SALARIO = " + acao);
+		if(acao == null) {
+			response.sendRedirect("funcSal/listar.jsp");
+		}else if(acao.equals("INSERIR SALARIO")) {
+			String _cpf = request.getParameter("cpf");
+			String _sal = request.getParameter("sal");
+			String _dtaIni = request.getParameter("dtaIni");
+			funcSal = new FuncionarioSalarioVO(_cpf,Float.parseFloat(_sal),_dtaIni);
+			DAOFactory.createFuncionarioSalarioDAO().inserir(funcSal);
+			response.sendRedirect("funcSal/listar.jsp");
+		}else if(acao.equals("edit")) {
+			String cpfIni = request.getParameter("id1");
+			String dataIni = request.getParameter("id2");
+			FuncionarioSalarioVO funcionarioSalarioVO =  DAOFactory.createFuncionarioSalarioDAO().consultar(cpfIni,dataIni);
+			request.getSession().setAttribute("funcSal", funcionarioSalarioVO);
+			response.sendRedirect("funcSal/editar.jsp");
+		}else if(acao.equals("remove")) {
+			String cpfIni = request.getParameter("id1");
+			String dataIni = request.getParameter("id2");
+			DAOFactory.createFuncionarioSalarioDAO().excluir(cpfIni,dataIni);
+			response.sendRedirect("funcSal/listar.jsp");
+		}else if(acao.equals("ALTERAR SALARIO")) {
+			String cpfIni = request.getParameter("cpfIni");
+			String dataIni = request.getParameter("dataIni");
+			String _cpf = request.getParameter("cpf");
+			String _sal = request.getParameter("sal");
+			String _dtaIni = request.getParameter("dtaIni");
+			funcSal = new FuncionarioSalarioVO(_cpf,Float.parseFloat(_sal),_dtaIni);
+			DAOFactory.createFuncionarioSalarioDAO().alterar(funcSal, cpfIni,dataIni);
+			response.sendRedirect("funcSal/listar.jsp");
+		}else{
+			System.out.println("n deveria");
+			response.sendRedirect("funcSal/listar.jsp");
+		}
 	}
 
 }

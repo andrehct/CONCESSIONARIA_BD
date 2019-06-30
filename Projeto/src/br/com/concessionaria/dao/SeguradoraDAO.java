@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.concessionaria.factory.DAOFactory;
 import br.com.concessionaria.infra.ConexaoDAO;
 import br.com.concessionaria.infra.InterfaceDAO;
 import br.com.concessionaria.vo.SeguradoraVO;
@@ -46,10 +45,6 @@ public class SeguradoraDAO implements InterfaceDAO<SeguradoraVO>{
 
 	@Override
 	public void alterar(SeguradoraVO t, String... chave) {
-		//chave[0] = novo nome
-		//chave[1] = novo endereco
-		//chave[2] = novo telefone
-		SeguradoraVO aux = DAOFactory.createSeguradoraDAO().consultar(t.getNomeSeguradora());
 		try {
 			//Montando a query sql
 				sql.setLength(0);
@@ -60,10 +55,10 @@ public class SeguradoraDAO implements InterfaceDAO<SeguradoraVO>{
 				sql.append("WHERE [ID_SEGURADORA] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, chave[0]);
-				stmt.setString(2, chave[1]);
-				stmt.setString(3, chave[2]);
-				stmt.setString(4, Integer.toString(aux.getIdSeg()));
+				stmt.setString(1, t.getNomeSeguradora());
+				stmt.setString(2, t.getEndereco());
+				stmt.setString(3, t.getTelefone());
+				stmt.setString(4, chave[0]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -84,7 +79,7 @@ public class SeguradoraDAO implements InterfaceDAO<SeguradoraVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("DELETE FROM SEGURADORA ");
-				sql.append("WHERE [NOM_SEGURADORA] = ?");
+				sql.append("WHERE [ID_SEGURADORA] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -108,12 +103,8 @@ public class SeguradoraDAO implements InterfaceDAO<SeguradoraVO>{
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("SELECT ");
-				sql.append("[ID_SEGURADORA],");
-				sql.append("[NOM_SEGURADORA],");
-				sql.append("[DES_ENDERECO],");
-				sql.append("[NUM_TELEFONE] FROM SEGURADORA ");
-				sql.append("WHERE [NOM_SEGURADORA] = ?");
+				sql.append("SELECT * FROM SEGURADORA ");
+				sql.append("WHERE [ID_SEGURADORA] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -122,7 +113,7 @@ public class SeguradoraDAO implements InterfaceDAO<SeguradoraVO>{
 			//Pegando a linha de resultado com o next
 				res.next();
 			//criando seguradora com os dados obtidos
-				seg.setNomeSeguradora(chave[0]);
+				seg.setNomeSeguradora(res.getString("NOM_SEGURADORA"));
 				seg.setIdSeg(res.getInt("ID_SEGURADORA"));
 				seg.setEndereco(res.getString("DES_ENDERECO"));
 				seg.setTelefone(res.getString("NUM_TELEFONE"));

@@ -24,15 +24,14 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 				sql.setLength(0);
 				sql.append("INSERT INTO SEGURO_AUTOMOVEL ");
 				sql.append("([NUM_CPF_FUNCIONARIO],[ID_SEGURO],");
-				sql.append("[DES_CHASSI],[DTA_CONTRATO],[ID_SEGURADORA]) ");
-				sql.append("VALUES (?,?,?,?,?)");
+				sql.append("[DES_CHASSI],[DTA_CONTRATO]) ");
+				sql.append("VALUES (?,?,?,?)");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getFuncCPF());
 				stmt.setString(2, Integer.toString(t.getIdSeguro()));
 				stmt.setString(3, t.getChassi());
 				stmt.setString(4, t.getDataContrato());
-				stmt.setString(5, Integer.toString(t.getIdSeguradora()));
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -53,18 +52,22 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("UPDATE SEGURO_AUTOMOVEL SET ");
-				sql.append("[NUM_CPF_FUNCIONARIO] = ? ");
+				sql.append("[NUM_CPF_FUNCIONARIO] = ?, ");
+				sql.append("[DES_CHASSI] = ?, ");
+				sql.append("[ID_SEGURO] = ?, ");
+				sql.append("[DTA_CONTRATO] = ? ");
 				sql.append("WHERE [ID_SEGURO] = ? ");
 				sql.append("AND [DES_CHASSI] = ? ");
 				sql.append("AND [DTA_CONTRATO] = ? ");
-				sql.append("AND [ID_SEGURADORA] = ? ");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, chave[0]);
-				stmt.setString(2, Integer.toString(t.getIdSeguro()));
-				stmt.setString(3, t.getChassi());
+				stmt.setString(1, t.getFuncCPF());
+				stmt.setString(2, t.getChassi());
+				stmt.setString(3, Integer.toString(t.getIdSeguro()));
 				stmt.setString(4, t.getDataContrato());
-				stmt.setString(5, Integer.toString(t.getIdSeguradora()));
+				stmt.setString(5, chave[0]);
+				stmt.setString(6, chave[1]);
+				stmt.setString(7, chave[2]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -87,13 +90,11 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 				sql.append("WHERE [ID_SEGURO] = ? ");
 				sql.append("AND [DES_CHASSI] = ? ");
 				sql.append("AND [DTA_CONTRATO] = ? ");
-				sql.append("AND [ID_SEGURADORA] = ? ");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
 				stmt.setString(2, chave[1]);
 				stmt.setString(3, chave[2]);
-				stmt.setString(4, chave[3]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -114,22 +115,15 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("SELECT ");
-				sql.append("[NUM_CPF_FUNCIONARIO],");
-				sql.append("[ID_SEGURO],");
-				sql.append("[DES_CHASSI],");
-				sql.append("[DTA_CONTRATO],");
-				sql.append("[ID_SEGURADORA] FROM SEGURO_AUTOMOVEL ");
+				sql.append("SELECT * FROM SEGURO_AUTOMOVEL ");
 				sql.append("WHERE [ID_SEGURO] = ? ");
 				sql.append("AND [DES_CHASSI] = ? ");
 				sql.append("AND [DTA_CONTRATO] = ? ");
-				sql.append("AND [ID_SEGURADORA] = ? ");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
 				stmt.setString(2, chave[1]);
 				stmt.setString(3, chave[2]);
-				stmt.setString(4, chave[3]);
 			//Executando a query no banco
 				res = stmt.executeQuery();
 			//Pegando a linha de resultado com o next
@@ -137,7 +131,6 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 			//criando seguro-automovel com os dados obtidos
 				segAuto.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
 				segAuto.setIdSeguro(res.getInt("ID_SEGURO"));
-				segAuto.setIdSeguradora(res.getInt("ID_SEGURADORA"));
 				segAuto.setChassi(res.getString("DES_CHASSI"));
 				segAuto.setDataContrato(res.getString("DTA_CONTRATO"));
 		}catch(Exception ex) {
@@ -169,11 +162,10 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 					SeguroAutomovelVO el = new SeguroAutomovelVO();
 					
 					el.setChassi(res.getString("DES_CHASSI"));
-					el.setIdSeguradora(res.getInt("ID_SEGURADORA"));
 					el.setIdSeguro(res.getInt("ID_SEGURO"));
 					el.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
-					el.setDataContrato(res.getString("DTA_CONTRATO"));
-					
+					el.setDataContrato(res.getDate("DTA_CONTRATO").toString());
+					//System.out.println("data " + el.getDataContrato());
 					aux.add(el);
 				}
 		}catch(Exception ex) {

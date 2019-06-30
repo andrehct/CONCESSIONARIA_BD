@@ -12,14 +12,14 @@
 <script type="text/javascript">
 function remover(cpf){
 	if(window.confirm("Deseja realmente remover esse funcionário?")){
-		document.form1.action="../FuncionarioController?acao=remove&id="+cpf;
-		document.form1.submit();
+		document.formListar.action="../FuncionarioController?acao=remove&id="+cpf;
+		document.formListar.submit();
 	}
 }
 </script>
 </head>
 <body>
-<form action="" name="form1" method="post">
+<form action="" name="formListar" method="post">
     <br/> 
       <div align="right"><a href="inserir.jsp" class="waves-effect waves-light btn-small"><i class="material-icons left">control_point</i>Cadastrar Funcionário</a></div>
     <br/>

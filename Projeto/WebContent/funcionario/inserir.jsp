@@ -4,59 +4,58 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
-<head>
 <meta charset="ISO-8859-1">
 <title>::: Inserir Funcionários :::</title>
 <%@ include file="../menu.jsp" %>
 
 <body>
-<form action="../FuncionarioController" name="form1" method="post">
+<form action="../FuncionarioController" name="formInserir" method="post">
 	<table>
 		<tr>
 		<td>
-			<label>NOME: </label>
-			<input type="text" id="nome" name="nome">
+			<label><b>NOME:</b></label>
+			<input type="text" name="nome">
 		</td>
 		</tr>
 		<tr>
 			<td>
-				<label>CPF: </label>
+				<label><b>CPF:</b></label>
 				<input type="text" name="cpf">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>DATA DE NASCIMENTO: </label>
+				<label><b>DATA DE NASCIMENTO:</b></label>
 				<input type="text" name="nascimento">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>DATA DE CONTRATACAO: </label>
+				<label><b>DATA DE CONTRATACAO:</b></label>
 				<input type="text" name="contratacao">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>NIVEL: </label>
+				<label><b>NIVEL:</b></label>
 				<input type="text" name="nivel">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>RG: </label>
+				<label><b>RG:</b></label>
 				<input type="text" name="rg">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>ENDERECO: </label>
+				<label><b>ENDERECO:</b></label>
 				<input type="text" name="endereco">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<label>CARGO: </label>
+				<label><b>CARGO:</b></label>
 				<input type="text" name="cargo">
 			</td>
 		</tr>

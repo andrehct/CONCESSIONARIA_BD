@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.concessionaria.factory.DAOFactory;
 import br.com.concessionaria.infra.ConexaoDAO;
 import br.com.concessionaria.infra.InterfaceDAO;
 import br.com.concessionaria.vo.CargoVO;
@@ -45,9 +44,6 @@ public class CargoDAO implements InterfaceDAO<CargoVO>{
 	@Override
 	public void alterar(CargoVO cargo, String... chave) {
 		
-		//chave[0] vai ter o novo nome do cargo
-		
-		CargoVO aux = DAOFactory.createCargoDAO().consultar(cargo.getNomeCargo());
 		try {
 			//Montando a query sql
 				sql.setLength(0);
@@ -56,8 +52,8 @@ public class CargoDAO implements InterfaceDAO<CargoVO>{
 				sql.append("WHERE [ID_CARGO] = ? ");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, chave[0]);
-				stmt.setString(2, Integer.toString(aux.getIdCargo()));
+				stmt.setString(1, cargo.getNomeCargo());
+				stmt.setString(2, chave[0]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 		}catch(Exception ex) {
@@ -76,7 +72,7 @@ public class CargoDAO implements InterfaceDAO<CargoVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("DELETE FROM CARGO ");
-				sql.append("WHERE [NOM_CARGO] = ?");
+				sql.append("WHERE [ID_CARGO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -100,10 +96,8 @@ public class CargoDAO implements InterfaceDAO<CargoVO>{
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("SELECT ");
-				sql.append("[ID_CARGO] ");
-				sql.append("FROM CARGO ");
-				sql.append("WHERE [NOM_CARGO] = ?");
+				sql.append("SELECT * FROM CARGO ");
+				sql.append("WHERE [ID_CARGO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -112,7 +106,7 @@ public class CargoDAO implements InterfaceDAO<CargoVO>{
 			//Pegando a linha de resultado com o next
 				res.next();
 			//criando cargo com os dados obtidos
-				cargo.setNomeCargo(chave[0]);
+				cargo.setNomeCargo(res.getString("NOM_CARGO"));
 				cargo.setIdCargo(res.getInt("ID_CARGO"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados do cargo.");

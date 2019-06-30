@@ -17,15 +17,15 @@ public class ConexaoDAO {
 		try {
 			if(rs != null) {
 				rs.close();
-				System.out.println("ResultSet Fechado");
+				//System.out.println("ResultSet Fechado");
 			}
 			if(pstmt != null) {
 				pstmt.close();
-				System.out.println("PreparedStatement Fechado");
+				//System.out.println("PreparedStatement Fechado");
 			}
 			if(conexao != null) {
 				conexao.close();
-				System.out.println("Conexão Fechada");
+				//System.out.println("Conexão Fechada");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

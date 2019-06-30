@@ -5,18 +5,16 @@ public class SeguroAutomovelVO {
 	private int idSeguro;
 	private String dataContrato;
 	private String funcCPF;
-	private int idSeguradora;
 	public SeguroAutomovelVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SeguroAutomovelVO(String chassi, int idSeguro, String dataContrato, String funcCPF, int idSeguradora) {
+	public SeguroAutomovelVO(String chassi, int idSeguro, String dataContrato, String funcCPF) {
 		super();
 		this.chassi = chassi;
 		this.idSeguro = idSeguro;
 		this.dataContrato = dataContrato;
 		this.funcCPF = funcCPF;
-		this.idSeguradora = idSeguradora;
 	}
 	public String getChassi() {
 		return chassi;
@@ -41,12 +39,6 @@ public class SeguroAutomovelVO {
 	}
 	public void setFuncCPF(String funcCPF) {
 		this.funcCPF = funcCPF;
-	}
-	public int getIdSeguradora() {
-		return idSeguradora;
-	}
-	public void setIdSeguradora(int idSeguradora) {
-		this.idSeguradora = idSeguradora;
 	}
 	
 

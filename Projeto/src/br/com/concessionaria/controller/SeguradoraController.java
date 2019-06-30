@@ -7,12 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.concessionaria.factory.DAOFactory;
+import br.com.concessionaria.vo.SeguradoraVO;
+
 /**
  * Servlet implementation class SeguradoraController
  */
 @WebServlet("/SeguradoraController")
 public class SeguradoraController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	SeguradoraVO seg;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -27,15 +32,45 @@ public class SeguradoraController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String acao = request.getParameter("acao");
+		System.out.println("ACAO SEGURADORA = " + acao);
+		if(acao == null) {
+			response.sendRedirect("seguradora/listar.jsp");
+		}else if(acao.equals("INSERIR SEGURADORA")) {
+			String _nome = request.getParameter("nome");
+			String _end = request.getParameter("end");
+			String _tele = request.getParameter("tele");
+			seg = new SeguradoraVO(_nome, _end, _tele);
+			DAOFactory.createSeguradoraDAO().inserir(seg);
+			response.sendRedirect("seguradora/listar.jsp");
+		}else if(acao.equals("edit")) {
+			String segu = request.getParameter("id");
+			SeguradoraVO seguradoraVO =  DAOFactory.createSeguradoraDAO().consultar(segu);
+			request.getSession().setAttribute("seguradora", seguradoraVO);
+			response.sendRedirect("seguradora/editar.jsp");
+		}else if(acao.equals("remove")) {
+			String idIni = request.getParameter("id");
+			DAOFactory.createSeguradoraDAO().excluir(idIni);
+			response.sendRedirect("seguradora/listar.jsp");
+		}else if(acao.equals("ALTERAR SEGURADORA")) {
+			String idIni = request.getParameter("idIni");
+			String _nome = request.getParameter("nome");
+			String _end = request.getParameter("end");
+			String _tele = request.getParameter("tele");
+			seg = new SeguradoraVO( _nome, _end, _tele);
+			DAOFactory.createSeguradoraDAO().alterar(seg, idIni);
+			response.sendRedirect("seguradora/listar.jsp");
+		}else{
+			System.out.println("n deveria");
+			response.sendRedirect("seguradora/listar.jsp");
+		}
 	}
 
 }

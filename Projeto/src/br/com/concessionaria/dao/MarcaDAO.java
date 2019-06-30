@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.concessionaria.factory.DAOFactory;
 import br.com.concessionaria.infra.ConexaoDAO;
 import br.com.concessionaria.infra.InterfaceDAO;
 import br.com.concessionaria.vo.MarcaVO;
@@ -45,9 +44,6 @@ public class MarcaDAO implements InterfaceDAO<MarcaVO>{
 	@Override
 	public void alterar(MarcaVO t, String... chave) {
 		
-		//chave[0] vai ter o novo nome da marca
-		
-		MarcaVO aux = DAOFactory.createMarcaDAO().consultar(t.getNomeMarca());
 		try {
 			//Montando a query sql
 				sql.setLength(0);
@@ -56,8 +52,8 @@ public class MarcaDAO implements InterfaceDAO<MarcaVO>{
 				sql.append("WHERE [ID_MARCA] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, chave[0]);
-				stmt.setString(2, Integer.toString(aux.getIdMarca()));
+				stmt.setString(1, t.getNomeMarca());
+				stmt.setString(2, chave[0]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -77,7 +73,7 @@ public class MarcaDAO implements InterfaceDAO<MarcaVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("DELETE FROM MARCA ");
-				sql.append("WHERE [NOM_MARCA] = ?");
+				sql.append("WHERE [ID_MARCA] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -102,8 +98,8 @@ public class MarcaDAO implements InterfaceDAO<MarcaVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("SELECT ");
-				sql.append("[ID_MARCA] FROM COR ");
-				sql.append("WHERE NOM_MARCA = ?");
+				sql.append("* FROM MARCA ");
+				sql.append("WHERE ID_MARCA = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -113,7 +109,7 @@ public class MarcaDAO implements InterfaceDAO<MarcaVO>{
 				res.next();
 			//atualizando marca com o id obtido
 				marca.setIdMarca(res.getInt("ID_MARCA"));
-				marca.setNomeMarca(chave[0]);
+				marca.setNomeMarca(res.getString("NOM_MARCA"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados da marca.");
 			ex.printStackTrace();

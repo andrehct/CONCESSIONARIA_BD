@@ -131,13 +131,7 @@ public class RevisaoDAO implements InterfaceDAO<RevisaoVO>{
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("SELECT ");
-				sql.append("[NUM_CPF_FUNCIONARIO],");
-				sql.append("[DES_CHASSI],");
-				sql.append("[DTA_REVISAO],");
-				sql.append("[B_ACEITE],");
-				sql.append("[DES_PLACA],");
-				sql.append("[VAL_PRECO] FROM REVISAO ");
+				sql.append("SELECT * FROM REVISAO ");
 				sql.append("WHERE [NUM_CPF_FUNCIONARIO] = ? AND [DES_CHASSI] = ? AND [DTA_REVISAO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());

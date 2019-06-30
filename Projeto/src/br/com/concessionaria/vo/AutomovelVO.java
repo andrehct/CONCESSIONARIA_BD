@@ -6,19 +6,21 @@ public class AutomovelVO {
 	private int idMarca;
 	private float preco;
 	private int idCor;
+	private int ano;
 	private String chassi;
 	private String foto;
 	public AutomovelVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AutomovelVO(int idTpAuto, int idModelo, int idMarca, float preco, int idCor, String chassi) {
+	public AutomovelVO(int idTpAuto, int idModelo, int idMarca, float preco, int idCor, String chassi, int ano) {
 		super();
 		this.idTpAuto = idTpAuto;
 		this.idModelo = idModelo;
 		this.idMarca = idMarca;
 		this.preco = preco;
 		this.idCor = idCor;
+		this.setAno(ano);
 		this.chassi = chassi;
 	}
 	public int getIdTpAuto() {
@@ -62,6 +64,12 @@ public class AutomovelVO {
 	}
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+	public int getAno() {
+		return ano;
+	}
+	public void setAno(int ano) {
+		this.ano = ano;
 	}
 
 }

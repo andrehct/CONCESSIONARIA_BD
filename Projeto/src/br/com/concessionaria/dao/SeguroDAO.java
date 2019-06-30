@@ -23,11 +23,11 @@ public class SeguroDAO implements InterfaceDAO<SeguroVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("INSERT INTO SEGURO ");
-				sql.append("([DES_CHASSI],[VAL_PRECO],[ID_SEGURADORA]) ");
+				sql.append("([NOM_SEGURO],[VAL_PRECO],[ID_SEGURADORA]) ");
 				sql.append("VALUES (?,?,?)");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, t.getChassi());
+				stmt.setString(1, t.getNome());
 				stmt.setString(2, Float.toString(t.getPreco()));
 				stmt.setString(3, Integer.toString(t.getIdSeguradora()));
 			//Executando a query no banco
@@ -49,16 +49,16 @@ public class SeguroDAO implements InterfaceDAO<SeguroVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("UPDATE SEGURO SET ");
-				sql.append("[VAL_PRECO] = ? ");
+				sql.append("[VAL_PRECO] = ?, ");
+				sql.append("[NOM_SEGURO] = ?, ");
+				sql.append("[ID_SEGURADORA] = ? ");
 				sql.append("WHERE [ID_SEGURO] = ? ");
-				sql.append("AND [DES_CHASSI] = ? ");
-				sql.append("AND [ID_SEGURADORA] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, chave[0]);
-				stmt.setString(2, Integer.toString(t.getIdSeguro()));
-				stmt.setString(3, t.getChassi());
-				stmt.setString(4, Integer.toString(t.getIdSeguradora()));
+				stmt.setString(1, Float.toString(t.getPreco()));
+				stmt.setString(2, t.getNome());
+				stmt.setString(3, Integer.toString(t.getIdSeguradora()));
+				stmt.setString(4, chave[0]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -79,13 +79,9 @@ public class SeguroDAO implements InterfaceDAO<SeguroVO>{
 				sql.setLength(0);
 				sql.append("DELETE FROM SEGURO ");
 				sql.append("WHERE [ID_SEGURO] = ? ");
-				sql.append("AND [DES_CHASSI] = ? ");
-				sql.append("AND [ID_SEGURADORA] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
-				stmt.setString(2, chave[1]);
-				stmt.setString(3, chave[2]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -106,23 +102,18 @@ public class SeguroDAO implements InterfaceDAO<SeguroVO>{
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("SELECT ");
-				sql.append("[VAL_PRECO] FROM SEGURO ");
+				sql.append("SELECT * FROM SEGURO ");
 				sql.append("WHERE [ID_SEGURO] = ? ");
-				sql.append("AND [DES_CHASSI] = ? ");
-				sql.append("AND [ID_SEGURADORA] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
-				stmt.setString(2, chave[1]);
-				stmt.setString(3, chave[2]);
 			//Executando a query no banco
 				res = stmt.executeQuery();
 			//Pegando a linha de resultado com o next
 				res.next();
 			//criando funcionario com os dados obtidos
-				seg.setChassi(res.getString("DES_CHASSI"));
 				seg.setIdSeguradora(res.getInt("ID_SEGURADORA"));
+				seg.setNome(res.getString("NOM_SEGURO"));
 				seg.setIdSeguro(res.getInt("ID_SEGURO"));
 				seg.setPreco(res.getFloat("VAL_PRECO"));
 		}catch(Exception ex) {
@@ -153,9 +144,9 @@ public class SeguroDAO implements InterfaceDAO<SeguroVO>{
 				while(res.next()) {
 					SeguroVO seg = new SeguroVO();
 					
-					seg.setChassi(res.getString("DES_CHASSI"));
 					seg.setIdSeguradora(res.getInt("ID_SEGURADORA"));
 					seg.setIdSeguro(res.getInt("ID_SEGURO"));
+					seg.setNome(res.getString("NOM_SEGURO"));
 					seg.setPreco(res.getFloat("VAL_PRECO"));
 					
 					aux.add(seg);

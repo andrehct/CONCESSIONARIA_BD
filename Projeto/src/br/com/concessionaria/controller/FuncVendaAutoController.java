@@ -7,12 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.concessionaria.factory.DAOFactory;
+import br.com.concessionaria.vo.FuncVendaAutoVO;
+
 /**
  * Servlet implementation class FuncVendaAutoController
  */
 @WebServlet("/FuncVendaAutoController")
 public class FuncVendaAutoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	FuncVendaAutoVO fva;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -27,15 +32,51 @@ public class FuncVendaAutoController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String acao = request.getParameter("acao");
+		System.out.println("ACAO VENDA AUTOMOVEL = " + acao);
+		if(acao == null) {
+			response.sendRedirect("vendaAuto/listar.jsp");
+		}else if(acao.equals("INSERIR")) {
+			String _cpf = request.getParameter("cpf");
+			String _chassi = request.getParameter("chassi");
+			String _dta = request.getParameter("dta");
+			fva = new FuncVendaAutoVO(_cpf,_chassi,_dta);
+			DAOFactory.createFuncVendaAutoDAO().inserir(fva);
+			response.sendRedirect("vendaAuto/listar.jsp");
+		}else if(acao.equals("edit")) {
+			String cpf = request.getParameter("id1");
+			String chassi = request.getParameter("id2");
+			String data = request.getParameter("id3");
+			FuncVendaAutoVO funcVendaAutoVO =  DAOFactory.createFuncVendaAutoDAO().consultar(cpf,chassi,data);
+			request.getSession().setAttribute("fva", funcVendaAutoVO);
+			response.sendRedirect("vendaAuto/editar.jsp");
+		}else if(acao.equals("remove")) {
+			String cpf = request.getParameter("id1");
+			String chassi = request.getParameter("id2");
+			String data = request.getParameter("id3");
+			DAOFactory.createFuncVendaAutoDAO().excluir(cpf,chassi,data);
+			response.sendRedirect("vendaAuto/listar.jsp");
+		}else if(acao.equals("ALTERAR")) {
+			String cpfIni = request.getParameter("cpfIni");
+			String chassiIni = request.getParameter("chassiIni");
+			String dtaIni = request.getParameter("dtaIni");
+			String _cpf = request.getParameter("cpf");
+			String _chassi = request.getParameter("chassi");
+			String _dta = request.getParameter("dta");
+			fva = new FuncVendaAutoVO(_cpf,_chassi,_dta);
+			DAOFactory.createFuncVendaAutoDAO().alterar(fva, cpfIni,chassiIni,dtaIni);
+			response.sendRedirect("vendaAuto/listar.jsp");
+		}else{
+			System.out.println("n deveria");
+			response.sendRedirect("vendaAuto/listar.jsp");
+		}
 	}
 
 }

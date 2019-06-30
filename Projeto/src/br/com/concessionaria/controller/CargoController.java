@@ -7,12 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.concessionaria.factory.DAOFactory;
+import br.com.concessionaria.vo.CargoVO;
+
 /**
  * Servlet implementation class CargoController
  */
 @WebServlet("/CargoController")
 public class CargoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	CargoVO cargo;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -27,15 +32,41 @@ public class CargoController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String acao = request.getParameter("acao");
+		System.out.println("ACAO CARGO = " + acao);
+		if(acao == null) {
+			response.sendRedirect("cargo/listar.jsp");
+		}else if(acao.equals("INSERIR CARGO")) {
+			String _nome = request.getParameter("nome");
+			cargo = new CargoVO(_nome);
+			DAOFactory.createCargoDAO().inserir(cargo);
+			response.sendRedirect("cargo/listar.jsp");
+		}else if(acao.equals("edit")) {
+			String idCargo = request.getParameter("id");
+			CargoVO cargoVO =  DAOFactory.createCargoDAO().consultar(idCargo);
+			request.getSession().setAttribute("cargo", cargoVO);
+			response.sendRedirect("cargo/editar.jsp");
+		}else if(acao.equals("remove")) {
+			String idCargo = request.getParameter("id");
+			DAOFactory.createCargoDAO().excluir(idCargo);
+			response.sendRedirect("cargo/listar.jsp");
+		}else if(acao.equals("ALTERAR CARGO")) {
+			String idCargo = request.getParameter("idIni");
+			String _nome = request.getParameter("nome");
+			cargo = new CargoVO( _nome, Integer.parseInt(idCargo));
+			DAOFactory.createCargoDAO().alterar(cargo, idCargo);
+			response.sendRedirect("cargo/listar.jsp");
+		}else{
+			System.out.println("n deveria");
+			response.sendRedirect("cargo/listar.jsp");
+		}
 	}
 
 }

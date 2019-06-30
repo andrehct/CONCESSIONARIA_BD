@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.concessionaria.factory.DAOFactory;
 import br.com.concessionaria.infra.ConexaoDAO;
 import br.com.concessionaria.infra.InterfaceDAO;
 import br.com.concessionaria.vo.CorVO;
@@ -45,19 +44,16 @@ public class CorDAO implements InterfaceDAO<CorVO>{
 	@Override
 	public void alterar(CorVO t, String... chave) {
 		
-		//chave[0] vai ter o novo nome da cor
-		
-		CorVO aux = DAOFactory.createCorDAO().consultar(t.getNomeCor());
 		try {
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("UPDATE COR SET ");
-				sql.append("[NOM_COR] = ?,");
+				sql.append("[NOM_COR] = ? ");
 				sql.append("WHERE [ID_COR] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, chave[0]);
-				stmt.setString(2, Integer.toString(aux.getIdCor()));
+				stmt.setString(1, t.getNomeCor());
+				stmt.setString(2, chave[0]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -77,7 +73,7 @@ public class CorDAO implements InterfaceDAO<CorVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("DELETE FROM COR ");
-				sql.append("WHERE [NOM_COR] = ?");
+				sql.append("WHERE [ID_COR] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -85,7 +81,7 @@ public class CorDAO implements InterfaceDAO<CorVO>{
 				stmt.executeUpdate();
 			
 		}catch(Exception ex) {
-			System.out.println("Erro ao tentar excluir o funcionário.");
+			System.out.println("Erro ao tentar excluir a cor.");
 			ex.printStackTrace();
 			
 		}finally {
@@ -102,8 +98,8 @@ public class CorDAO implements InterfaceDAO<CorVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("SELECT ");
-				sql.append("[ID_COR] FROM COR ");
-				sql.append("WHERE NOM_COR = ?");
+				sql.append("* FROM COR ");
+				sql.append("WHERE ID_COR = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -113,7 +109,7 @@ public class CorDAO implements InterfaceDAO<CorVO>{
 				res.next();
 			//atualizando cor com o id obtido
 				cor.setIdCor(res.getInt("ID_COR"));
-				cor.setNomeCor(chave[0]);
+				cor.setNomeCor(res.getString("NOM_COR"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados da cor.");
 			ex.printStackTrace();

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.concessionaria.factory.DAOFactory;
 import br.com.concessionaria.infra.ConexaoDAO;
 import br.com.concessionaria.infra.InterfaceDAO;
 import br.com.concessionaria.vo.TipoAutomovelVO;
@@ -44,19 +43,17 @@ public class TipoAutomovelDAO implements InterfaceDAO<TipoAutomovelVO>{
 
 	@Override
 	public void alterar(TipoAutomovelVO t, String... chave) {
-		//chave[0] vai ter o novo nome do tipo do automóvel
 		
-		TipoAutomovelVO aux = DAOFactory.createTipoAutomovelDAO().consultar(t.getNome());
 		try {
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("UPDATE TIPO_AUTOMOVEL SET ");
-				sql.append("[NOM_TPAUTO] = ?,");
+				sql.append("[NOM_TPAUTO] = ? ");
 				sql.append("WHERE [ID_TPAUTO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, chave[0]);
-				stmt.setString(2, Integer.toString(aux.getIdTPAuto()));
+				stmt.setString(1, t.getNome());
+				stmt.setString(2, Integer.toString(t.getIdTPAuto()));
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -76,7 +73,7 @@ public class TipoAutomovelDAO implements InterfaceDAO<TipoAutomovelVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("DELETE FROM TIPO_AUTOMOVEL ");
-				sql.append("WHERE [NOM_TPAUTO] = ?");
+				sql.append("WHERE [ID_TPAUTO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -101,8 +98,8 @@ public class TipoAutomovelDAO implements InterfaceDAO<TipoAutomovelVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("SELECT ");
-				sql.append("[ID_TPAUTO] FROM TIPO_AUTOMOVEL ");
-				sql.append("WHERE NOM_TPAUTO = ?");
+				sql.append("* FROM TIPO_AUTOMOVEL ");
+				sql.append("WHERE ID_TPAUTO = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
@@ -112,7 +109,7 @@ public class TipoAutomovelDAO implements InterfaceDAO<TipoAutomovelVO>{
 				res.next();
 			//atualizando cor com o id obtido
 				aux.setIdTPAuto(res.getInt("ID_TPAUTO"));
-				aux.setNome(chave[0]);
+				aux.setNome(res.getString("NOM_TPAUTO"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados do tipo de automóvel.");
 			ex.printStackTrace();

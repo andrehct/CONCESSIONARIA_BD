@@ -25,10 +25,10 @@ public class DBConexao {
 		try {
 			DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
 			connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=CONCESSIONARIA;","javaUsu","123456");
-			System.out.println("conectado!");
+			//System.out.println("conectado!");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Erro ao tentar montar o lookup de conexão com o database.");
+			//System.out.println("Erro ao tentar montar o lookup de conexão com o database.");
 		}
 
 		return connection;

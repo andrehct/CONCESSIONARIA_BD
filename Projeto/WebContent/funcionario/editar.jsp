@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>::: Lista de Funcionários :::</title>
+<title>::: Edição de Funcionários :::</title>
 <%@ include file="../menu.jsp" %>
 
 </head>
 <body>
-
-<form action="FuncionarioController" name="form1" method="post">
+<form action="../FuncionarioController" name="formEditar" method="post">
+	<input type="hidden" name="cpfIni" value="<%=func.getCPF()%>">
 	<table>
 		<tr>
 			<td>
@@ -27,53 +27,52 @@
 		<tr>
 			<td>
 				<label>CPF: </label>
-				<input type="text" name="cpf" value="">
+				<input type="text" name="cpf" value="<%=func.getCPF()%>">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>DATA DE NASCIMENTO: </label>
-				<input type="text" name="nascimento">
+				<input type="text" name="nascimento" value="<%=func.getDataNascimento()%>">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>DATA DE CONTRATACAO: </label>
-				<input type="text" name="contratacao">
+				<input type="text" name="contratacao" value="<%=func.getDataContratacao()%>">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>NIVEL: </label>
-				<input type="text" name="nivel">
+				<input type="text" name="nivel" value="<%=func.getNivel()%>">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>RG: </label>
-				<input type="text" name="rg">
+				<input type="text" name="rg" value="<%=func.getRg()%>">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>ENDERECO: </label>
-				<input type="text" name="endereco">
+				<input type="text" name="endereco" value="<%=func.getEndereco()%>">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>CARGO: </label>
-				<input type="text" name="cargo">
+				<input type="text" name="cargo" value="<%=func.getIdCargo()%>">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<br/>
-				<input type="submit" name="botao" value="Enviar">
+				<input type="submit" name="acao" value="ALTERAR FUNCIONARIO"  class="waves-effect waves-light btn-small">
 			</td>
 		</tr>
 	</table>
 </form>
-
 </body>
 </html>

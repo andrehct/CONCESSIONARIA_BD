@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.concessionaria.factory.DAOFactory;
 import br.com.concessionaria.infra.ConexaoDAO;
 import br.com.concessionaria.infra.InterfaceDAO;
 import br.com.concessionaria.vo.ModeloVO;
@@ -29,8 +28,8 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getNomeModelo());
-				stmt.setString(1, Integer.toString(t.getIdMarca()));
-				stmt.setString(1, Integer.toString(t.getAno()));
+				stmt.setString(2, Integer.toString(t.getIdMarca()));
+				stmt.setString(3, Integer.toString(t.getAno()));
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -46,10 +45,9 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 
 	@Override
 	public void alterar(ModeloVO t, String... chave) {
-		//chave [0] = nome
-		//chave [1] = marca
+		//chave [0] = idModelo
+		//chave [1] = idMarca
 		//chave [3] = ano
-		ModeloVO aux = DAOFactory.createModeloDAO().consultar(t.getNomeModelo());
 		try {
 			//Montando a query sql
 				sql.setLength(0);
@@ -57,14 +55,15 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 				sql.append("[NOM_MODELO] = ?,");
 				sql.append("[ID_MARCA] = ?,");
 				sql.append("[NUM_ANO] = ? ");
-				sql.append("WHERE [ID_MODELO] = ? AND [ID_MARCA] = ?");
+				sql.append("WHERE [ID_MODELO] = ? AND [ID_MARCA] = ? AND [NUM_ANO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
-				stmt.setString(1, chave[0]);
-				stmt.setString(2, chave[1]);
-				stmt.setString(3, chave[2]);
-				stmt.setString(4, Integer.toString(aux.getIdModelo()));
-				stmt.setString(5, Integer.toString(aux.getIdMarca()));
+				stmt.setString(1, t.getNomeModelo());
+				stmt.setString(2, Integer.toString(t.getIdMarca()));
+				stmt.setString(3, Integer.toString(t.getAno()));
+				stmt.setString(4, chave[0]);
+				stmt.setString(5, chave[1]);
+				stmt.setString(6, chave[2]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -80,14 +79,19 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 
 	@Override
 	public void excluir(String... chave) {
+		//chave [0] = idModelo
+		//chave [1] = idMarca
+		//chave [3] = ano
 		try {
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("DELETE FROM MODELO ");
-				sql.append("WHERE [NOM_MODELO] = ?");
+				sql.append("WHERE [ID_MODELO] = ? AND [ID_MARCA] = ? AND [NUM_ANO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
+				stmt.setString(2, chave[1]);
+				stmt.setString(3, chave[2]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -104,22 +108,22 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 	@Override
 	public ModeloVO consultar(String... chave) {
 		
-		//chave[0] vai ter o novo nome do modelo
+		//chave [0] = idModelo
+		//chave [1] = idMarca
+		//chave [3] = ano
 		
 		ModeloVO modelo = new ModeloVO();
 		
 		try {
 			//Montando a query sql
 				sql.setLength(0);
-				sql.append("SELECT ");
-				sql.append("[ID_MODELO],");
-				sql.append("[NOM_MODELO],");
-				sql.append("[ID_MARCA],");
-				sql.append("[NUM_ANO] FROM MODELO ");
-				sql.append("WHERE NOM_MODELO = ?");
+				sql.append("SELECT * FROM MODELO ");
+				sql.append("WHERE [ID_MODELO] = ? AND [ID_MARCA] = ? AND [NUM_ANO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
+				stmt.setString(2, chave[1]);
+				stmt.setString(3, chave[2]);
 			//Executando a query no banco
 				res = stmt.executeQuery();
 			//Pegando a linha de resultado com o next
@@ -128,7 +132,7 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 				modelo.setIdModelo(res.getInt("ID_MODELO"));
 				modelo.setIdMarca(res.getInt("ID_MARCA"));
 				modelo.setAno(res.getInt("NUM_ANO"));
-				modelo.setNomeModelo(chave[0]);
+				modelo.setNomeModelo(res.getString("NOM_MODELO"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados do modelo.");
 			ex.printStackTrace();
@@ -148,11 +152,6 @@ public class ModeloDAO implements InterfaceDAO<ModeloVO>{
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("SELECT * FROM MODELO");
-				sql.append("[ID_MODELO],");
-				sql.append("[],");
-				sql.append("[],");
-				sql.append("[] FROM MODELO ");
-				sql.append("WHERE  = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 			//Executando a query no banco

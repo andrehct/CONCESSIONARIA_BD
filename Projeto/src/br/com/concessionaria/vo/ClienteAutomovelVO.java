@@ -4,20 +4,22 @@ public class ClienteAutomovelVO {
 	private String chassi;
 	private String clienteCPF;
 	private String placa;
-	private String dataFim;
+	private String dataInicio;
 	public ClienteAutomovelVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ClienteAutomovelVO(String chassi, String clienteCPF, String placa) {
+	public ClienteAutomovelVO(String chassi, String clienteCPF, String placa, String dataIni) {
 		super();
 		this.chassi = chassi;
+		this.dataInicio = dataIni;
 		this.clienteCPF = clienteCPF;
 		this.placa = placa;
 	}
-	public ClienteAutomovelVO(String chassi, String clienteCPF) {
+	public ClienteAutomovelVO(String chassi, String clienteCPF, String dataIni) {
 		super();
 		this.chassi = chassi;
+		this.dataInicio = dataIni;
 		this.clienteCPF = clienteCPF;
 	}
 	public String getChassi() {
@@ -29,11 +31,11 @@ public class ClienteAutomovelVO {
 	public String getClienteCPF() {
 		return clienteCPF;
 	}
-	public void setDataFim(String dtFim) {
-		this.dataFim = dtFim;
+	public void setDataInicio(String dtIni) {
+		this.dataInicio = dtIni;
 	}
-	public String getDataFim() {
-		return dataFim;
+	public String getDataInicio() {
+		return dataInicio;
 	}
 	public void setClienteCPF(String clienteCPF) {
 		this.clienteCPF = clienteCPF;

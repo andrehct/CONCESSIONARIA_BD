@@ -65,7 +65,7 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				stmt.setString(3, t.getEndereco());
 				stmt.setString(4, t.getDataNascimento());
 				stmt.setString(5, t.getRg());
-				stmt.setString(9, CPF[0]);
+				stmt.setString(6, CPF[0]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -114,7 +114,7 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				sql.append("[NOM_CLIENTE],");
 				sql.append("[DES_ENDERECO],");
 				sql.append("[DTA_NASCIMENTO],");
-				sql.append("[NUM_RG] FROM FUNCIONARIO ");
+				sql.append("[NUM_RG] FROM CLIENTE ");
 				sql.append("WHERE [NUM_CPF] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());

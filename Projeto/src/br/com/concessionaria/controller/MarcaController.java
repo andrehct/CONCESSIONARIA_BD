@@ -7,12 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.concessionaria.factory.DAOFactory;
+import br.com.concessionaria.vo.MarcaVO;
+
 /**
  * Servlet implementation class MarcaController
  */
 @WebServlet("/MarcaController")
 public class MarcaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	MarcaVO marca;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -27,15 +32,41 @@ public class MarcaController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String acao = request.getParameter("acao");
+		System.out.println("ACAO MARCA = " + acao);
+		if(acao == null) {
+			response.sendRedirect("marca/listar.jsp");
+		}else if(acao.equals("INSERIR MARCA")) {
+			String _nome = request.getParameter("nome");
+			marca = new MarcaVO(_nome);
+			DAOFactory.createMarcaDAO().inserir(marca);
+			response.sendRedirect("marca/listar.jsp");
+		}else if(acao.equals("edit")) {
+			String idMarca = request.getParameter("id");
+			MarcaVO marcaVO =  DAOFactory.createMarcaDAO().consultar(idMarca);
+			request.getSession().setAttribute("marca", marcaVO);
+			response.sendRedirect("marca/editar.jsp");
+		}else if(acao.equals("remove")) {
+			String idMarca = request.getParameter("id");
+			DAOFactory.createMarcaDAO().excluir(idMarca);
+			response.sendRedirect("marca/listar.jsp");
+		}else if(acao.equals("ALTERAR MARCA")) {
+			String marcaIni = request.getParameter("marcaIni");
+			String _nome = request.getParameter("nome");
+			marca = new MarcaVO(_nome, Integer.parseInt(marcaIni));
+			DAOFactory.createMarcaDAO().alterar(marca, marcaIni);
+			response.sendRedirect("marca/listar.jsp");
+		}else{
+			System.out.println("n deveria");
+			response.sendRedirect("marca/listar.jsp");
+		}
 	}
 
 }

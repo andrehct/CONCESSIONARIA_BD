@@ -1,8 +1,8 @@
 package br.com.concessionaria.vo;
 
 public class SeguroVO {
-	private String chassi;
 	private float preco;
+	private String nome;
 	private int idSeguradora;
 	private int idSeguro;
 	
@@ -10,24 +10,18 @@ public class SeguroVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SeguroVO(String chassi, float preco, int idSeguradora) {
+	public SeguroVO(String nome, float preco, int idSeguradora) {
 		super();
-		this.chassi = chassi;
+		this.nome = nome;
 		this.preco = preco;
 		this.idSeguradora = idSeguradora;
 	}
-	public SeguroVO(String chassi, float preco, int idSeguradora, int idSeguro) {
+	public SeguroVO(String nome, float preco, int idSeguradora, int idSeguro) {
 		super();
-		this.chassi = chassi;
 		this.preco = preco;
+		this.setNome(nome);
 		this.idSeguradora = idSeguradora;
 		this.idSeguro = idSeguro;
-	}
-	public String getChassi() {
-		return chassi;
-	}
-	public void setChassi(String chassi) {
-		this.chassi = chassi;
 	}
 	public float getPreco() {
 		return preco;
@@ -46,6 +40,12 @@ public class SeguroVO {
 	}
 	public void setIdSeguro(int idSeguro) {
 		this.idSeguro = idSeguro;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 }
