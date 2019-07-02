@@ -29,7 +29,7 @@
 		<tr>
 		<td>
 			<label>DATA INICIAL: </label>
-			<input type="text" name="dtaIni" value="<%=funcSal.getDataIni()%>">
+			<input type="text" name="dtaIni" value="<%=funcSal.getDataIni().substring(0,10)%>">
 		</td>
 		</tr>
 		<tr>

@@ -57,7 +57,7 @@ public class SeguroAutomovelController extends HttpServlet {
 			String dtaIni = request.getParameter("id3");
 			System.out.println("data = " + dtaIni);
 			SeguroAutomovelVO seguroAutomovelVO =  DAOFactory.createSeguroAutomovelDAO().consultar(idSegIni,chassiIni,dtaIni);
-			request.getSession().setAttribute("modelo", seguroAutomovelVO);
+			request.getSession().setAttribute("seguroAuto", seguroAutomovelVO);
 			response.sendRedirect("seguroAutomovel/editar.jsp");
 		}else if(acao.equals("remove")) {
 			String modeloIni = request.getParameter("id1");
@@ -68,7 +68,9 @@ public class SeguroAutomovelController extends HttpServlet {
 		}else if(acao.equals("ALTERAR SEGURO AUTOMOVEL")) {
 			String idSegIni = request.getParameter("idSegIni");
 			String chassiIni = request.getParameter("chassiIni");
-			String dtaIni = request.getParameter("dataIni");
+			String abc = request.getParameter("dataIni").substring(0,10);
+			String def = request.getParameter("dataIni").substring(10,request.getParameter("dataIni").length());
+			String dtaIni = abc.concat("T").concat(def).replace(" ", "");
 			String _chassi = request.getParameter("chassi");
 			String _seguro = request.getParameter("seguro");
 			String _dta = request.getParameter("dta");

@@ -59,7 +59,7 @@ public class ClienteAutomovelController extends HttpServlet {
 			String chassiIni = request.getParameter("id2");
 			String dataIni = request.getParameter("id3");
 			ClienteAutomovelVO clienteAutomovelVO =  DAOFactory.createClienteAutomovelDAO().consultar(chassiIni,cpfIni,dataIni);
-			request.getSession().setAttribute("modelo", clienteAutomovelVO);
+			request.getSession().setAttribute("cliAuto", clienteAutomovelVO);
 			response.sendRedirect("clienteAuto/editar.jsp");
 		}else if(acao.equals("remove")) {
 			String cpfIni = request.getParameter("id1");
@@ -68,13 +68,15 @@ public class ClienteAutomovelController extends HttpServlet {
 			DAOFactory.createClienteAutomovelDAO().excluir(chassiIni,cpfIni,dataIni);
 			response.sendRedirect("clienteAuto/listar.jsp");
 		}else if(acao.equals("ALTERAR")) {
-			String cpfIni = request.getParameter("id1");
-			String chassiIni = request.getParameter("id2");
-			String dataIni = request.getParameter("id3");
+			String cpfIni = request.getParameter("cpfIni");
+			String chassiIni = request.getParameter("chassiIni");
+			String abc = request.getParameter("dtaIni").substring(0,10);
+			String def = request.getParameter("dtaIni").substring(10,request.getParameter("dtaIni").length());
+			String dataIni = abc.concat("T").concat(def).replace(" ", "");
 			String _cpf = request.getParameter("cpf");
 			String _chassi = request.getParameter("chassi");
 			String _placa = request.getParameter("placa");
-			String _dta = request.getParameter("dtaIni");
+			String _dta = request.getParameter("dataIni");
 			cliAuto = new ClienteAutomovelVO(_chassi,_cpf,_placa,_dta);
 			DAOFactory.createClienteAutomovelDAO().alterar(cliAuto, chassiIni,cpfIni,dataIni);
 			response.sendRedirect("clienteAuto/listar.jsp");

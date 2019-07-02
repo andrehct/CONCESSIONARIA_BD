@@ -31,7 +31,7 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				stmt.setString(1, t.getCpf());
 				stmt.setString(2, t.getNome());
 				stmt.setString(3, t.getEndereco());
-				stmt.setString(4, t.getDataNascimento());
+				stmt.setString(4, t.getDataNascimento()+"T00:00:00.0");
 				stmt.setString(5, t.getRg());
 			//Executando a query no banco
 				stmt.executeUpdate();
@@ -63,7 +63,8 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				stmt.setString(1, t.getCpf());
 				stmt.setString(2, t.getNome());
 				stmt.setString(3, t.getEndereco());
-				stmt.setString(4, t.getDataNascimento());
+				System.out.println("data = " + t.getDataNascimento());
+				stmt.setString(4, t.getDataNascimento()+"T00:00:00.0");
 				stmt.setString(5, t.getRg());
 				stmt.setString(6, CPF[0]);
 			//Executando a query no banco
@@ -158,9 +159,11 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 					
 					el.setCpf(res.getString("NUM_CPF"));
 					el.setNome(res.getString("NOM_CLIENTE"));
-					el.setDataNascimento(res.getString("DTA_NASCIMENTO"));
 					el.setEndereco(res.getString("DES_ENDERECO"));
 					el.setRg(res.getString("NUM_RG"));
+					String abc = res.getString("DTA_NASCIMENTO").substring(0,10);
+					String def = res.getString("DTA_NASCIMENTO").substring(10,res.getString("DTA_NASCIMENTO").length());
+					el.setDataNascimento(abc.concat("T").concat(def).replace(" ", ""));
 					
 					cli.add(el);
 				}

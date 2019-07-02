@@ -30,7 +30,7 @@
 		<tr>
 		<td>
 			<label>DATA: </label>
-			<input type="text" name="dta" value="<%=rev.getDataRev()%>">
+			<input type="text" name="dta" value="<%=rev.getDataRev().substring(0,10)%>">
 		</td>
 		</tr>
 		<tr>

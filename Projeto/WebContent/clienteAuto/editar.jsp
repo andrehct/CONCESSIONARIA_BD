@@ -36,7 +36,7 @@
 		<tr>
 		<td>
 			<label>DATA INICIAL: </label>
-			<input type="text" name="dtaIni" value="<%=cliAuto.getDataInicio()%>">
+			<input type="text" name="dataIni" value="<%=cliAuto.getDataInicio().substring(0,10)%>">
 		</td>
 		</tr>
 		<tr>

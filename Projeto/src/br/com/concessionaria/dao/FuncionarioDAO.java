@@ -33,9 +33,9 @@ public class FuncionarioDAO implements InterfaceDAO<FuncionarioVO>{
 				stmt.setString(1, funcionarioVO.getCPF());
 				stmt.setString(2, funcionarioVO.getNome());
 				stmt.setString(3, funcionarioVO.getEndereco());
-				stmt.setString(4, funcionarioVO.getDataNascimento());
+				stmt.setString(4, funcionarioVO.getDataNascimento()+"T00:00:00.0");
 				stmt.setString(5, funcionarioVO.getRg());
-				stmt.setString(6, funcionarioVO.getDataContratacao());
+				stmt.setString(6, funcionarioVO.getDataContratacao()+"T00:00:00.0");
 				stmt.setString(7, Integer.toString(funcionarioVO.getIdCargo()));
 				stmt.setString(8, Integer.toString(funcionarioVO.getNivel()));
 			//Executando a query no banco
@@ -71,9 +71,9 @@ public class FuncionarioDAO implements InterfaceDAO<FuncionarioVO>{
 				stmt.setString(1, funcionarioVO.getCPF());
 				stmt.setString(2, funcionarioVO.getNome());
 				stmt.setString(3, funcionarioVO.getEndereco());
-				stmt.setString(4, funcionarioVO.getDataNascimento());
+				stmt.setString(4, funcionarioVO.getDataNascimento()+"T00:00:00.0");
 				stmt.setString(5, funcionarioVO.getRg());
-				stmt.setString(6, funcionarioVO.getDataContratacao());
+				stmt.setString(6, funcionarioVO.getDataContratacao()+"T00:00:00.0");
 				stmt.setString(7, Integer.toString(funcionarioVO.getIdCargo()));
 				stmt.setString(8, Integer.toString(funcionarioVO.getNivel()));
 				stmt.setString(9, CPF[0]);
@@ -168,11 +168,13 @@ public class FuncionarioDAO implements InterfaceDAO<FuncionarioVO>{
 					el.setCPF(res.getString("NUM_CPF"));
 					el.setNome(res.getString("NOM_FUNCIONARIO"));
 					el.setDataContratacao(res.getString("DTA_CONTRATACAO"));
-					el.setDataNascimento(res.getString("DTA_NASCIMENTO"));
 					el.setEndereco(res.getString("DES_ENDERECO"));
 					el.setIdCargo(res.getInt("ID_CARGO"));
 					el.setNivel(res.getInt("NUM_NIVEL"));
 					el.setRg(res.getString("NUM_RG"));
+					String abc = res.getString("DTA_NASCIMENTO").substring(0,10);
+					String def = res.getString("DTA_NASCIMENTO").substring(10,res.getString("DTA_NASCIMENTO").length());
+					el.setDataNascimento(abc.concat("T").concat(def).replace(" ", ""));
 					
 					func.add(el);
 				}

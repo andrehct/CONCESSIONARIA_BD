@@ -33,13 +33,13 @@
 		<tr>
 			<td>
 				<label>DATA DE NASCIMENTO: </label>
-				<input type="text" name="nascimento" value="<%=func.getDataNascimento()%>">
+				<input type="text" name="nascimento" value="<%=func.getDataNascimento().substring(0,10)%>">
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<label>DATA DE CONTRATACAO: </label>
-				<input type="text" name="contratacao" value="<%=func.getDataContratacao()%>">
+				<input type="text" name="contratacao" value="<%=func.getDataContratacao().substring(0,10)%>">
 			</td>
 		</tr>
 		<tr>

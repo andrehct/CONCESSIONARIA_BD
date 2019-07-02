@@ -1,6 +1,6 @@
 <%@page import="br.com.concessionaria.vo.FuncVendaAutoVO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%FuncVendaAutoVO fav = (FuncVendaAutoVO)session.getAttribute("fav");%>
+<%FuncVendaAutoVO fav = (FuncVendaAutoVO)session.getAttribute("fva");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +30,7 @@
 		<tr>
 		<td>
 			<label>DATA: </label>
-			<input type="text" name="dta" value="<%=fav.getDataVenda()%>">
+			<input type="text" name="dta" value="<%=fav.getDataVenda().substring(0,10)%>">
 		</td>
 		</tr>
 		<tr>

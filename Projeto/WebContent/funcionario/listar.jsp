@@ -26,8 +26,9 @@ function remover(cpf){
     <table class="collection">
      <thead>
      	<tr>
-     	 <th width="10%">CPF</th>
-     	 <th width="40%">Nome do Funcionário</th>
+     	 <th width="15%">CPF</th>
+     	 <th width="30%">Nome do Funcionário</th>
+     	 <th width="20%">Cargo</th>
      	 <th width="10%" align="right">Ação</th>
      	</tr>
      </thead> 
@@ -35,6 +36,7 @@ function remover(cpf){
 	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
         <td><%=lista.get(i).getCPF()%></td>
         <td><%=lista.get(i).getNome()%></td>
+        <td><%=DAOFactory.createCargoDAO().consultar(Integer.toString(lista.get(i).getIdCargo())).getNomeCargo()%></td>
         <td>
         	<a href="../FuncionarioController?acao=edit&id=<%=lista.get(i).getCPF()%>" class="waves-effect waves-light btn-small"><i class="material-icons left">create</i></a>
         	<a href="#" onclick="remover('<%=lista.get(i).getCPF()%>')" class="waves-effect waves-light btn-small"><i class="material-icons left">remove_circle_outline</i></a>

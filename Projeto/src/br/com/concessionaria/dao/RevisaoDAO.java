@@ -30,7 +30,7 @@ public class RevisaoDAO implements InterfaceDAO<RevisaoVO>{
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getFuncCPF());
 				stmt.setString(2, t.getChassi());
-				stmt.setString(3, t.getDataRev());
+				stmt.setString(3, t.getDataRev()+"T00:00:00.0");
 				stmt.setString(4, Boolean.toString(t.getAceite()));
 				stmt.setString(5, t.getPlaca());
 				stmt.setString(6, Float.toString(t.getPreco()));
@@ -63,13 +63,13 @@ public class RevisaoDAO implements InterfaceDAO<RevisaoVO>{
 				sql.append("[DTA_REVISAO] = ?,");
 				sql.append("[B_ACEITE] = ?,");
 				sql.append("[DES_PLACA] = ?,");
-				sql.append("[VAL_PRECO] = ?,");
+				sql.append("[VAL_PRECO] = ? ");
 				sql.append("WHERE [NUM_CPF_FUNCIONARIO] = ? AND [DES_CHASSI] = ? AND [DTA_REVISAO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getFuncCPF());
 				stmt.setString(2, t.getChassi());
-				stmt.setString(3, t.getDataRev());
+				stmt.setString(3, t.getDataRev()+"T00:00:00.0");
 				stmt.setString(4, Boolean.toString(t.getAceite()));
 				stmt.setString(5, t.getPlaca());
 				stmt.setString(6, Float.toString(t.getPreco()));
@@ -178,10 +178,12 @@ public class RevisaoDAO implements InterfaceDAO<RevisaoVO>{
 					
 					el.setAceite(res.getBoolean("B_ACEITE"));
 					el.setChassi(res.getString("DES_CHASSI"));
-					el.setDataRev(res.getString("DTA_REVISAO"));
 					el.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
 					el.setPlaca(res.getString("DES_PLACA"));
 					el.setPreco(res.getFloat("VAL_PRECO"));
+					String abc = res.getString("DTA_REVISAO").substring(0,10);
+					String def = res.getString("DTA_REVISAO").substring(10,res.getString("DTA_REVISAO").length());
+					el.setDataRev(abc.concat("T").concat(def).replace(" ", ""));
 					
 					revisao.add(el);
 				}

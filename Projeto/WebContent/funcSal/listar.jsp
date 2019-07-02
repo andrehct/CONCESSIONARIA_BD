@@ -36,7 +36,7 @@ function remover(cpf, dta){
 	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
         <td><%=lista.get(i).getFuncCPF()%></td>
         <td><%=lista.get(i).getSalario()%></td>
-        <td><%=lista.get(i).getDataIni()%></td>
+        <td><%=lista.get(i).getDataIni().substring(0,10)%></td>
         <td>
         	<a href="../FuncionarioSalarioController?acao=edit&id1=<%=lista.get(i).getFuncCPF()%>&id2=<%=lista.get(i).getDataIni()%>" class="waves-effect waves-light btn-small"><i class="material-icons left">create</i></a>
         	<a href="#" onclick="remover('<%=lista.get(i).getFuncCPF()%>','<%=lista.get(i).getDataIni()%>')" class="waves-effect waves-light btn-small"><i class="material-icons left">remove_circle_outline</i></a>

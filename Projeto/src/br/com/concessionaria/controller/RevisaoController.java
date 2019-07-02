@@ -69,7 +69,9 @@ public class RevisaoController extends HttpServlet {
 		}else if(acao.equals("ALTERAR REVISAO")) {
 			String cpfIni = request.getParameter("cpfIni");
 			String chassiIni = request.getParameter("chassiIni");
-			String dtaIni = request.getParameter("dtaIni");
+			String abc = request.getParameter("dataIni").substring(0,10);
+			String def = request.getParameter("dataIni").substring(10,request.getParameter("dataIni").length());
+			String dtaIni = abc.concat("T").concat(def).replace(" ", "");
 			String _cpf = request.getParameter("cpf");
 			String _chassi = request.getParameter("chassi");
 			String _dta = request.getParameter("dta");

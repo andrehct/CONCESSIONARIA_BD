@@ -37,7 +37,7 @@ function remover(cpf,chassi,dta){
 	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
         <td><%=lista.get(i).getFuncCPF()%></td>
         <td><%=lista.get(i).getChassi()%></td>
-        <td><%=lista.get(i).getDataRev()%></td>
+        <td><%=lista.get(i).getDataRev().substring(0,10)%></td>
         <td><%=lista.get(i).getAceite()%></td>
         <td>
         	<a href="../RevisaoController?acao=edit&id1=<%=lista.get(i).getFuncCPF()%>&id2=<%=lista.get(i).getChassi()%>&id3=<%=lista.get(i).getDataRev()%>" class="waves-effect waves-light btn-small"><i class="material-icons left">create</i></a>

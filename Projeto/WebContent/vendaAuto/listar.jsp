@@ -36,7 +36,7 @@ function remover(cpf,chassi,dta){
 	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
         <td><%=lista.get(i).getFuncCPF()%></td>
         <td><%=lista.get(i).getChassi()%></td>
-        <td><%=lista.get(i).getDataVenda()%></td>
+        <td><%=lista.get(i).getDataVenda().substring(0,10)%></td>
         <td>
         	<a href="../FuncVendaAutoController?acao=edit&id1=<%=lista.get(i).getFuncCPF()%>&id2=<%=lista.get(i).getChassi()%>&id3=<%=lista.get(i).getDataVenda()%>" class="waves-effect waves-light btn-small"><i class="material-icons left">create</i></a>
         	<a href="#" onclick="remover('<%=lista.get(i).getFuncCPF()%>','<%=lista.get(i).getChassi()%>','<%=lista.get(i).getDataVenda()%>')" class="waves-effect waves-light btn-small"><i class="material-icons left">remove_circle_outline</i></a>

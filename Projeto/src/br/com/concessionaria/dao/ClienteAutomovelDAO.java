@@ -32,7 +32,7 @@ public class ClienteAutomovelDAO implements InterfaceDAO<ClienteAutomovelVO>{
 				stmt.setString(1, t.getChassi());
 				stmt.setString(2, t.getClienteCPF());
 				stmt.setString(3, t.getPlaca());
-				stmt.setString(4, t.getDataInicio());
+				stmt.setString(4, t.getDataInicio()+"T00:00:00.0");
 				stmt.executeUpdate();
 			
 		}catch(Exception ex) {
@@ -62,7 +62,7 @@ public class ClienteAutomovelDAO implements InterfaceDAO<ClienteAutomovelVO>{
 					stmt.setString(1, cliAuto.getChassi());
 					stmt.setString(2, cliAuto.getClienteCPF());
 					stmt.setString(3, cliAuto.getPlaca());
-					stmt.setString(4, cliAuto.getDataInicio());
+					stmt.setString(4, cliAuto.getDataInicio()+"T00:00:00.0");
 					stmt.setString(5, chave[0]);
 					stmt.setString(6, chave[1]);
 					stmt.setString(7, chave[2]);
@@ -158,7 +158,9 @@ public class ClienteAutomovelDAO implements InterfaceDAO<ClienteAutomovelVO>{
 					el.setChassi(res.getString("DES_CHASSI"));
 					el.setClienteCPF(res.getString("NUM_CPF_CLIENTE"));
 					el.setPlaca(res.getString("DES_PLACA"));
-					el.setDataInicio(res.getString("DTA_INICIO"));
+					String abc = res.getString("DTA_INICIO").substring(0,10);
+					String def = res.getString("DTA_INICIO").substring(10,res.getString("DTA_INICIO").length());
+					el.setDataInicio(abc.concat("T").concat(def).replace(" ", ""));
 					
 					aux.add(el);
 					

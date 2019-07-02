@@ -29,7 +29,7 @@ public class FuncionarioSalarioDAO implements InterfaceDAO<FuncionarioSalarioVO>
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getFuncCPF());
 				stmt.setString(2, Float.toString(t.getSalario()));
-				stmt.setString(3, t.getDataIni());
+				stmt.setString(3, t.getDataIni()+"T00:00:00.0");
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -49,13 +49,17 @@ public class FuncionarioSalarioDAO implements InterfaceDAO<FuncionarioSalarioVO>
 			//Montando a query sql
 				sql.setLength(0);
 				sql.append("UPDATE FUNCIONARIO_SALARIO SET ");
-				sql.append("[VAL_SALARIO] = ? ");
+				sql.append("[VAL_SALARIO] = ?, ");
+				sql.append("[NUM_CPF_FUNCIONARIO] = ?, ");
+				sql.append("[DTA_INICIO] = ? ");
 				sql.append("WHERE [NUM_CPF_FUNCIONARIO] = ? AND [DTA_INICIO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setFloat(1, t.getSalario());
 				stmt.setString(2, t.getFuncCPF());
-				stmt.setString(3, t.getDataIni());
+				stmt.setString(3, t.getDataIni()+"T00:00:00.0");
+				stmt.setString(4, chave[0]);
+				stmt.setString(5, chave[1]);
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -111,12 +115,13 @@ public class FuncionarioSalarioDAO implements InterfaceDAO<FuncionarioSalarioVO>
 				sql.append("SELECT ");
 				sql.append("[NUM_CPF_FUNCIONARIO],");
 				sql.append("[VAL_SALARIO],");
-				sql.append("[DTA_INICIO] FROM FUNCIONARIO ");
+				sql.append("[DTA_INICIO] FROM FUNCIONARIO_SALARIO ");
 				sql.append("WHERE [NUM_CPF_FUNCIONARIO] = ? AND [DTA_INICIO] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, chave[0]);
 				stmt.setString(2, chave[1]);
+				
 			//Executando a query no banco
 				res = stmt.executeQuery();
 			//Pegando a linha de resultado com o next
@@ -154,7 +159,9 @@ public class FuncionarioSalarioDAO implements InterfaceDAO<FuncionarioSalarioVO>
 					
 					el.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
 					el.setSalario(res.getFloat("VAL_SALARIO"));
-					el.setDataIni(res.getString("DTA_INICIO"));
+					String abc = res.getString("DTA_INICIO").substring(0,10);
+					String def = res.getString("DTA_INICIO").substring(10,res.getString("DTA_INICIO").length());
+					el.setDataIni(abc.concat("T").concat(def).replace(" ", ""));
 					
 					funcSal.add(el);
 					

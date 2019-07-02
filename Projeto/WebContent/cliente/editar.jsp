@@ -28,7 +28,7 @@
 		<tr>
 			<td>
 				<label>DATA DE NASCIMENTO: </label>
-				<input type="text" name="nascimento" value="<%=cli.getDataNascimento()%>">
+				<input type="text" name="nascimento" value="<%=cli.getDataNascimento().substring(0,10)%>">
 			</td>
 		</tr>
 		<tr>

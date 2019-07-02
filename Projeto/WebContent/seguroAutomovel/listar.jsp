@@ -26,10 +26,11 @@ function remover(idSeg, chassi, data){
     <table class="collection">
      <thead>
      	<tr>
-     	 <th width="20%">CHASSI</th>
-     	 <th width="20%">SEGURO</th>
-     	 <th width="20%">SEGURADORA</th>
-     	 <th width="20%">FUNCIONÁRIO</th>
+     	 <th width="15%">CHASSI</th>
+     	 <th width="15%">SEGURO</th>
+     	 <th width="15%">SEGURADORA</th>
+     	 <th width="15%">FUNCIONÁRIO</th>
+     	 <th width="15%">DATA</th>
      	 <th width="10%" align="right">Ação</th>
      	</tr>
      </thead> 
@@ -39,6 +40,7 @@ function remover(idSeg, chassi, data){
         <td><%=DAOFactory.createSeguroDAO().consultar(Integer.toString(lista.get(i).getIdSeguro())).getNome()%></td>
         <td><%=DAOFactory.createSeguradoraDAO().consultar(Integer.toString(DAOFactory.createSeguroDAO().consultar(Integer.toString(lista.get(i).getIdSeguro())).getIdSeguradora())).getNomeSeguradora()%></td>
         <td><%=lista.get(i).getFuncCPF()%></td>
+        <td><%=lista.get(i).getDataContrato().substring(0,10)%></td>
         <td>
         	<a href="../SeguroAutomovelController?acao=edit&id1=<%=lista.get(i).getIdSeguro()%>&id2=<%=lista.get(i).getChassi()%>&id3=<%=lista.get(i).getDataContrato()%>" class="waves-effect waves-light btn-small"><i class="material-icons left">create</i></a>
         	<a href="#" onclick="remover('<%=lista.get(i).getIdSeguro()%>','<%=lista.get(i).getChassi()%>','<%=lista.get(i).getDataContrato()%>')" class="waves-effect waves-light btn-small"><i class="material-icons left">remove_circle_outline</i></a>

@@ -29,7 +29,7 @@ public class FuncVendaAutoDAO implements InterfaceDAO<FuncVendaAutoVO>{
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getFuncCPF());
 				stmt.setString(2, t.getChassi());
-				stmt.setString(3, t.getDataVenda());
+				stmt.setString(3, t.getDataVenda()+"T00:00:00.0");
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -57,7 +57,7 @@ public class FuncVendaAutoDAO implements InterfaceDAO<FuncVendaAutoVO>{
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getFuncCPF());
 				stmt.setString(2, t.getChassi());
-				stmt.setString(3, t.getDataVenda());
+				stmt.setString(3, t.getDataVenda()+"T00:00:00.0");
 				stmt.setString(4, chave[0]);
 				stmt.setString(5, chave[1]);
 				stmt.setString(6, chave[2]);
@@ -101,8 +101,34 @@ public class FuncVendaAutoDAO implements InterfaceDAO<FuncVendaAutoVO>{
 
 	@Override
 	public FuncVendaAutoVO consultar(String... chave) {
-		//Não há necessidade de consulta
-		return null;
+		FuncVendaAutoVO fva = new FuncVendaAutoVO();
+		try {
+			//Montando a query sql
+				sql.setLength(0);
+				sql.append("SELECT * FROM FUNCIONARIO_VENDA_AUTO ");
+				sql.append("WHERE [NUM_CPF_FUNCIONARIO] = ? AND [DES_CHASSI] = ? AND [DTA_VENDA] = ?");
+			//Montando o statement para o banco
+				stmt = conn.prepareStatement(sql.toString());
+				stmt.setString(1, chave[0]);
+				stmt.setString(2, chave[1]);
+				stmt.setString(3, chave[2]);
+				
+			//Executando a query no banco
+				res = stmt.executeQuery();
+			//Pegando a linha de resultado com o next
+				res.next();
+			//criando funcionario com os dados obtidos
+				fva.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
+				fva.setChassi(res.getString("DES_CHASSI"));
+				fva.setDataVenda(res.getString("DTA_VENDA"));
+		}catch(Exception ex) {
+			System.out.println("Erro ao tentar selecionar dados da relação funcionário venda automovel.");
+			ex.printStackTrace();
+			
+		}finally {
+			ConexaoDAO.liberaConexao(conn, stmt, res);
+		}
+		return fva;
 	}
 
 	@Override
@@ -121,8 +147,10 @@ public class FuncVendaAutoDAO implements InterfaceDAO<FuncVendaAutoVO>{
 					FuncVendaAutoVO el = new FuncVendaAutoVO();
 					
 					el.setChassi(res.getString("DES_CHASSI"));
-					el.setDataVenda(res.getString("DTA_VENDA"));
 					el.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
+					String abc = res.getString("DTA_VENDA").substring(0,10);
+					String def = res.getString("DTA_VENDA").substring(10,res.getString("DTA_VENDA").length());
+					el.setDataVenda(abc.concat("T").concat(def).replace(" ", ""));
 					
 					aux.add(el);
 				}

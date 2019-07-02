@@ -36,7 +36,7 @@ function remover(cpf, chassi, dta){
 	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
         <td><%=lista.get(i).getClienteCPF()%></td>
         <td><%=lista.get(i).getChassi()%></td>
-        <td><%=lista.get(i).getDataInicio()%></td>
+        <td><%=lista.get(i).getDataInicio().substring(0,10)%></td>
         <td>
         	<a href="../ClienteAutomovelController?acao=edit&id1=<%=lista.get(i).getClienteCPF()%>&id2=<%=lista.get(i).getChassi()%>&id3=<%=lista.get(i).getDataInicio()%>" class="waves-effect waves-light btn-small"><i class="material-icons left">create</i></a>
         	<a href="#" onclick="remover('<%=lista.get(i).getClienteCPF()%>','<%=lista.get(i).getChassi()%>', '<%=lista.get(i).getDataInicio()%>')" class="waves-effect waves-light btn-small"><i class="material-icons left">remove_circle_outline</i></a>

@@ -63,11 +63,13 @@ public class FuncionarioSalarioController extends HttpServlet {
 			response.sendRedirect("funcSal/listar.jsp");
 		}else if(acao.equals("ALTERAR SALARIO")) {
 			String cpfIni = request.getParameter("cpfIni");
-			String dataIni = request.getParameter("dataIni");
+			String abc = request.getParameter("dataIni").substring(0,10);
+			String def = request.getParameter("dataIni").substring(10,request.getParameter("dataIni").length());
+			String dataIni = abc.concat("T").concat(def).replace(" ", "");
+			String _dataIni = request.getParameter("dtaIni");
 			String _cpf = request.getParameter("cpf");
 			String _sal = request.getParameter("sal");
-			String _dtaIni = request.getParameter("dtaIni");
-			funcSal = new FuncionarioSalarioVO(_cpf,Float.parseFloat(_sal),_dtaIni);
+			funcSal = new FuncionarioSalarioVO(_cpf,Float.parseFloat(_sal),_dataIni);
 			DAOFactory.createFuncionarioSalarioDAO().alterar(funcSal, cpfIni,dataIni);
 			response.sendRedirect("funcSal/listar.jsp");
 		}else{

@@ -1,9 +1,14 @@
 package br.com.concessionaria.vo;
 
-public class FuncionarioSalarioVO {
-	private String funcCPF;
-	private float salario;
+import java.io.Serializable;
+
+public class FuncionarioSalarioVO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	private String funcCPF = "";
+	private float salario = 0;
 	private String dataIni;
+	
 	public FuncionarioSalarioVO() {
 		super();
 		// TODO Auto-generated constructor stub

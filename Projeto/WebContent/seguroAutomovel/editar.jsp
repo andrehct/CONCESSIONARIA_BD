@@ -30,7 +30,7 @@
 		<tr>
 		<td>
 			<label>DATA DA VENDA: </label>
-			<input type="text" name="dta" value="<%=seg.getDataContrato()%>">
+			<input type="text" name="dta" value="<%=seg.getDataContrato().substring(0,10)%>">
 		</td>
 		</tr>
 		<tr>

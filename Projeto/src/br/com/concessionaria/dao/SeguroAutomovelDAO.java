@@ -31,7 +31,7 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 				stmt.setString(1, t.getFuncCPF());
 				stmt.setString(2, Integer.toString(t.getIdSeguro()));
 				stmt.setString(3, t.getChassi());
-				stmt.setString(4, t.getDataContrato());
+				stmt.setString(4, t.getDataContrato()+"T00:00:00.0");
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -64,7 +64,7 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 				stmt.setString(1, t.getFuncCPF());
 				stmt.setString(2, t.getChassi());
 				stmt.setString(3, Integer.toString(t.getIdSeguro()));
-				stmt.setString(4, t.getDataContrato());
+				stmt.setString(4, t.getDataContrato()+"T00:00:00.0");
 				stmt.setString(5, chave[0]);
 				stmt.setString(6, chave[1]);
 				stmt.setString(7, chave[2]);
@@ -164,8 +164,10 @@ public class SeguroAutomovelDAO implements InterfaceDAO<SeguroAutomovelVO>{
 					el.setChassi(res.getString("DES_CHASSI"));
 					el.setIdSeguro(res.getInt("ID_SEGURO"));
 					el.setFuncCPF(res.getString("NUM_CPF_FUNCIONARIO"));
-					el.setDataContrato(res.getDate("DTA_CONTRATO").toString());
-					//System.out.println("data " + el.getDataContrato());
+					String abc = res.getString("DTA_CONTRATO").substring(0,10);
+					String def = res.getString("DTA_CONTRATO").substring(10,res.getString("DTA_CONTRATO").length());
+					el.setDataContrato(abc.concat("T").concat(def).replace(" ", ""));
+					
 					aux.add(el);
 				}
 		}catch(Exception ex) {
