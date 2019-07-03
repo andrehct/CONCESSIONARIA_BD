@@ -10,22 +10,21 @@
 
 </head>
 <body>
-<form action="../CargoController" name="formEditar" method="post">
-	<input type="hidden" name="idIni" value="<%=car.getIdCargo()%>">
-	<table>
-		<tr>
-		<td>
-			<label>NOME DO CARGO: </label>
-			<input type="text" name="nome" value="<%=car.getNomeCargo()%>">
-		</td>
-		</tr>
-		<tr>
-			<td>
-				<br/>
-				<input type="submit" name="acao" value="ALTERAR CARGO"  class="waves-effect waves-light btn-small">
-			</td>
-		</tr>
-	</table>
-</form>
+	<div class="row" style="margin-top: 50px; margin-left: 25%;">
+	<form class="col s8" action="../CargoController" name="formEditar" method="post">
+		<input type="hidden" name="idIni" value="<%=car.getIdCargo()%>">
+		<div class="row">
+	        <div class="input-field col s12">
+	          <input type="text" name="nome" value="<%=car.getNomeCargo()%>">
+	          <label>NOME DO CARGO:</label>
+	      	</div>
+		</div>
+		<div style="margin-left: 35%">
+	      	<button class="btn waves-effect waves-light" type="submit" name="acao" value="ALTERAR CARGO">ALTERAR
+		   		 <i class="material-icons right">send</i>
+		    </button>
+		</div>
+		</form>
+	</div>
 </body>
 </html>

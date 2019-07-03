@@ -16,14 +16,20 @@ function remover(cpf,chassi,dta){
 		document.formListar.submit();
 	}
 }
+function inserir(){
+	document.formListar.action="../FuncVendaAutoController?acao=inserir";
+	document.formListar.submit();
+}
 </script>
 </head>
 <body>
 <form action="" name="formListar" method="post">
-    <br/> 
-      <div align="right"><a href="inserir.jsp" class="waves-effect waves-light btn-small"><i class="material-icons left">control_point</i>Cadastrar Revisão</a></div>
-    <br/>
-    <table class="collection">
+    <div align="right" style="margin-right: 90px;margin-top: 30px;margin-bottom: 50px">
+      	<button onclick="inserir()" class="btn waves-effect waves-light">CADASTRAR REVISÃO
+	   		 	<i class="material-icons right">control_point</i>
+	    </button>
+	</div>
+    <table class="striped" style="width: 90%; margin-left: 5%;">
      <thead>
      	<tr>
      	 <th width="25%">Funcionário</th>
@@ -33,8 +39,8 @@ function remover(cpf,chassi,dta){
      	</tr>
      </thead> 
     <%for(int i = 0; i < lista.size(); i++){%>
-	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
-        <td><%=lista.get(i).getFuncCPF()%></td>
+	<tr>
+        <td><%=DAOFactory.createFuncionarioDAO().consultar(lista.get(i).getFuncCPF()).getNome()%></td>
         <td><%=lista.get(i).getChassi()%></td>
         <td><%=lista.get(i).getDataVenda().substring(0,10)%></td>
         <td>

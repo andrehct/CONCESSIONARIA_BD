@@ -43,6 +43,8 @@ public class FuncionarioSalarioController extends HttpServlet {
 		System.out.println("ACAO FUNCIONARIO SALARIO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("funcSal/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("funcSal/inserir.jsp");
 		}else if(acao.equals("INSERIR SALARIO")) {
 			String _cpf = request.getParameter("cpf");
 			String _sal = request.getParameter("sal");

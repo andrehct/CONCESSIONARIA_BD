@@ -9,23 +9,25 @@
 <%@ include file="../menu.jsp" %>
 
 </head>
+
 <body>
-<form action="../TipoAutomovelController" name="formEditar" method="post">
-	<input type="hidden" name="tpautoIni" value="<%=tpauto.getIdTPAuto()%>">
-	<table>
-		<tr>
-		<td>
-			<label>TIPO DE AUTOMÓVEL: </label>
-			<input type="text" name="nome" value="<%=tpauto.getNome()%>">
-		</td>
-		</tr>
-		<tr>
-			<td>
-				<br/>
-				<input type="submit" name="acao" value="ALTERAR TIPO"  class="waves-effect waves-light btn-small">
-			</td>
-		</tr>
-	</table>
-</form>
+	<div class="row" style="margin-top: 50px; margin-left: 25%;">
+	<form class="col s8" action="../TipoAutomovelController" name="formEditar" method="post">
+		<input type="hidden" name="tpautoIni" value="<%=tpauto.getIdTPAuto()%>">
+		<div class="row">
+	        <div class="input-field col s12">
+	          <input type="text" name="nome" value="<%=tpauto.getNome()%>">
+	          <label>NOME DO TIPO:</label>
+	      	</div>
+		</div>
+		<div style="margin-left: 35%">
+	      	<button class="btn waves-effect waves-light" type="submit" name="acao" value="ALTERAR TIPO">ALTERAR
+		   		 <i class="material-icons right">send</i>
+		    </button>
+		</div>
+		</form>
+	</div>
 </body>
+
+
 </html>

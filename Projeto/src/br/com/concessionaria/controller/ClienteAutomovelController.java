@@ -43,6 +43,8 @@ public class ClienteAutomovelController extends HttpServlet {
 		System.out.println("ACAO CLIENTE AUTOMOVEL = " + acao);
 		if(acao == null) {
 			response.sendRedirect("clienteAuto/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("clienteAuto/inserir.jsp");
 		}else if(acao.equals("INSERIR")) {
 			String _cpf = request.getParameter("cpf");
 			String _chassi = request.getParameter("chassi");

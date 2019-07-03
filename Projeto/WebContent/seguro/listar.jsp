@@ -16,14 +16,20 @@ function remover(idSeg){
 		document.formListar.submit();
 	}
 }
+function inserir(){
+	document.formListar.action="../SeguroController?acao=inserir";
+	document.formListar.submit();
+}
 </script>
 </head>
 <body>
 <form action="" name="formListar" method="post">
-    <br/> 
-      <div align="right"><a href="inserir.jsp" class="waves-effect waves-light btn-small"><i class="material-icons left">control_point</i>Cadastrar Seguro</a></div>
-    <br/>
-    <table class="collection">
+    <div align="right" style="margin-right: 90px;margin-top: 30px;margin-bottom: 50px">
+      	<button onclick="inserir()" class="btn waves-effect waves-light">CADASTRAR SEGURO
+	   		 	<i class="material-icons right">control_point</i>
+	    </button>
+	</div>
+    <table class="striped" style="width: 90%; margin-left: 5%;">
      <thead>
      	<tr>
      	 <th width="20%">Nome</th>
@@ -33,7 +39,7 @@ function remover(idSeg){
      	</tr>
      </thead> 
     <%for(int i = 0; i < lista.size(); i++){%>
-	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
+	<tr>
         <td><%=lista.get(i).getNome()%></td>
         <td><%=DAOFactory.createSeguradoraDAO().consultar(Integer.toString(lista.get(i).getIdSeguradora())).getNomeSeguradora()%></td>
         <td><%=lista.get(i).getPreco()%></td>

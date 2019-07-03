@@ -16,24 +16,30 @@ function remover(idSeg){
 		document.formListar.submit();
 	}
 }
+function inserir(){
+	document.formListar.action="../SeguradoraController?acao=inserir";
+	document.formListar.submit();
+}
 </script>
 </head>
 <body>
 <form action="" name="formListar" method="post">
-    <br/> 
-      <div align="right"><a href="inserir.jsp" class="waves-effect waves-light btn-small"><i class="material-icons left">control_point</i>Cadastrar Seguradora</a></div>
-    <br/>
-    <table class="collection">
+    <div align="right" style="margin-right: 90px;margin-top: 30px;margin-bottom: 50px">
+      	<button onclick="inserir()" class="btn waves-effect waves-light">CADASTRAR SEGURADORA
+	   		 	<i class="material-icons right">control_point</i>
+	    </button>
+	</div>
+    <table class="striped" style="width: 90%; margin-left: 5%;">
      <thead>
      	<tr>
      	 <th width="20%">Nome</th>
-     	 <th width="20%">Endereço</th>
-     	 <th width="20%">Telefone</th>
+     	 <th width="25%">Endereço</th>
+     	 <th width="15%">Telefone</th>
      	 <th width="10%" align="right">Ação</th>
      	</tr>
      </thead> 
     <%for(int i = 0; i < lista.size(); i++){%>
-	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
+	<tr>
         <td><%=lista.get(i).getNomeSeguradora()%></td>
         <td><%=lista.get(i).getEndereco()%></td>
         <td><%=lista.get(i).getTelefone()%></td>

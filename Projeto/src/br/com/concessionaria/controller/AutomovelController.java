@@ -43,6 +43,8 @@ public class AutomovelController extends HttpServlet {
 		System.out.println("ACAO AUTOMOVEL = " + acao);
 		if(acao == null) {
 			response.sendRedirect("automovel/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("automovel/inserir.jsp");
 		}else if(acao.equals("INSERIR AUTOMOVEL")) {
 			String _chassi = request.getParameter("chassi");
 			String _tipo = request.getParameter("tipo");

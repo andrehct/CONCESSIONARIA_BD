@@ -16,25 +16,31 @@ function remover(cpf, chassi, dta){
 		document.formListar.submit();
 	}
 }
+function inserir(){
+	document.formListar.action="../ClienteAutomovelController?acao=inserir";
+	document.formListar.submit();
+}
 </script>
 </head>
 <body>
 <form action="" name="formListar" method="post">
-    <br/> 
-      <div align="right"><a href="inserir.jsp" class="waves-effect waves-light btn-small"><i class="material-icons left">control_point</i>Cadastrar Automóvel para Cliente</a></div>
-    <br/>
-    <table class="collection">
+	<div align="right" style="margin-right: 90px;margin-top: 30px;margin-bottom: 50px">
+      	<button onclick="inserir()" class="btn waves-effect waves-light">CADASTRAR AUTOMÓVEL PARA CLIENTE
+	   		 	<i class="material-icons right">control_point</i>
+	    </button>
+	</div>
+    <table class="striped" style="width: 90%; margin-left: 5%;">
      <thead>
      	<tr>
      	 <th width="30%">Cliente</th>
-     	 <th width="30%">Chassi</th>
+     	 <th width="20%">Chassi</th>
      	 <th width="15%">Data Inicial</th>
-     	 <th width="10%" align="right">Ação</th>
+     	 <th width="15%" align="right">Ação</th>
      	</tr>
      </thead> 
     <%for(int i = 0; i < lista.size(); i++){%>
-	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
-        <td><%=lista.get(i).getClienteCPF()%></td>
+	<tr>
+        <td><%=DAOFactory.createClienteDAO().consultar(lista.get(i).getClienteCPF()).getNome()%></td>
         <td><%=lista.get(i).getChassi()%></td>
         <td><%=lista.get(i).getDataInicio().substring(0,10)%></td>
         <td>

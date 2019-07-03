@@ -43,6 +43,8 @@ public class FuncVendaAutoController extends HttpServlet {
 		System.out.println("ACAO VENDA AUTOMOVEL = " + acao);
 		if(acao == null) {
 			response.sendRedirect("vendaAuto/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("vendaAuto/inserir.jsp");
 		}else if(acao.equals("INSERIR")) {
 			String _cpf = request.getParameter("cpf");
 			String _chassi = request.getParameter("chassi");

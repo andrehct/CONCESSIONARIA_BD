@@ -43,6 +43,8 @@ public class MarcaController extends HttpServlet {
 		System.out.println("ACAO MARCA = " + acao);
 		if(acao == null) {
 			response.sendRedirect("marca/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("marca/inserir.jsp");
 		}else if(acao.equals("INSERIR MARCA")) {
 			String _nome = request.getParameter("nome");
 			marca = new MarcaVO(_nome);

@@ -9,34 +9,35 @@
 <%@ include file="../menu.jsp" %>
 
 <body>
-<form action="../SeguradoraController" name="formInserir" method="post">
-	<table>
-		<tr>
-		<td>
-			<label>NOME: </label>
-			<input type="text" name="nome">
-		</td>
-		</tr>
-		<tr>
-		<td>
-			<label>ENDEREÇO: </label>
-			<input type="text" name="end">
-		</td>
-		</tr>
-		<tr>
-		<td>
-			<label>TELEFONE: </label>
-			<input type="text" name="tele">
-		</td>
-		</tr>
-		<tr>
-			<td>
-				<br/>
-				<input type="submit" name="acao" value="INSERIR SEGURADORA"  class="waves-effect waves-light btn-small">
-			</td>
-		</tr>
-	</table>
-</form>
+<div class="row" style="margin-top: 50px; margin-left: 25%;">
+	<form class="col s8" action="../SeguradoraController" name="formInserir" method="post">
+		<div class="row">
+	        <div class="input-field col s12">
+	          <input type="text" name="nome">
+	          <label>NOME DA SEGURADORA:</label>
+	      	</div>
+		</div>
+		<div class="row">
+	        <div class="input-field col s12">
+	          <input type="text" name="end">
+	          <label>ENDEREÇO:</label>
+	      	</div>
+		</div>
+		<div class="row">
+	        <div class="input-field col s12">
+	          <input type="text" name="tele">
+	          <label>TELEFONE:</label>
+	      	</div>
+		</div>
+		<div style="margin-left: 35%">
+	      	<button class="btn waves-effect waves-light" type="submit" name="acao" value="INSERIR SEGURADORA">CADASTRAR
+		   		 <i class="material-icons right">send</i>
+		    </button>
+	    </div>
+	</form>
+</div>
 
 </body>
+
+
 </html>

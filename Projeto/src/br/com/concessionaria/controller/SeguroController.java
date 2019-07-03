@@ -43,6 +43,8 @@ public class SeguroController extends HttpServlet {
 		System.out.println("ACAO SEGURO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("seguro/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("seguro/inserir.jsp");
 		}else if(acao.equals("INSERIR SEGURO")) {
 			String _nome = request.getParameter("nome");
 			String _seg = request.getParameter("seguradora");

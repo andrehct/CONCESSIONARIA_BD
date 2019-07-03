@@ -43,6 +43,8 @@ public class RevisaoController extends HttpServlet {
 		System.out.println("ACAO REVISAO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("revisao/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("revisao/inserir.jsp");
 		}else if(acao.equals("INSERIR REVISAO")) {
 			String _cpf = request.getParameter("cpf");
 			String _chassi = request.getParameter("chassi");

@@ -43,6 +43,8 @@ public class ModeloController extends HttpServlet {
 		System.out.println("ACAO MODELO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("modelo/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("modelo/inserir.jsp");
 		}else if(acao.equals("INSERIR MODELO")) {
 			String _nome = request.getParameter("modelo");
 			String marca = request.getParameter("marca");

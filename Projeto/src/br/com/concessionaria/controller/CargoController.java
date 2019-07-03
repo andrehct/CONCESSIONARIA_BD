@@ -43,6 +43,8 @@ public class CargoController extends HttpServlet {
 		System.out.println("ACAO CARGO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("cargo/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("cargo/inserir.jsp");
 		}else if(acao.equals("INSERIR CARGO")) {
 			String _nome = request.getParameter("nome");
 			cargo = new CargoVO(_nome);

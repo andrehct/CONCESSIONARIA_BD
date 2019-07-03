@@ -16,24 +16,30 @@ function remover(cpf){
 		document.formListar.submit();
 	}
 }
+function inserir(){
+	document.formListar.action="../FuncionarioController?acao=inserir";
+	document.formListar.submit();
+}
 </script>
 </head>
 <body>
 <form action="" name="formListar" method="post">
-    <br/> 
-      <div align="right"><a href="inserir.jsp" class="waves-effect waves-light btn-small"><i class="material-icons left">control_point</i>Cadastrar Funcionário</a></div>
-    <br/>
-    <table class="collection">
+    <div align="right" style="margin-right: 90px;margin-top: 30px;margin-bottom: 50px">
+      	<button onclick="inserir()" class="btn waves-effect waves-light">CADASTRAR FUNCIONÁRIO
+	   		 	<i class="material-icons right">control_point</i>
+	    </button>
+	</div>
+    <table class="striped" style="width: 90%; margin-left: 5%;">
      <thead>
      	<tr>
      	 <th width="15%">CPF</th>
      	 <th width="30%">Nome do Funcionário</th>
      	 <th width="20%">Cargo</th>
-     	 <th width="10%" align="right">Ação</th>
+     	 <th width="15%" align="right">Ação</th>
      	</tr>
      </thead> 
     <%for(int i = 0; i < lista.size(); i++){%>
-	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
+	<tr>
         <td><%=lista.get(i).getCPF()%></td>
         <td><%=lista.get(i).getNome()%></td>
         <td><%=DAOFactory.createCargoDAO().consultar(Integer.toString(lista.get(i).getIdCargo())).getNomeCargo()%></td>

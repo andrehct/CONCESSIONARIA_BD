@@ -44,6 +44,8 @@ public class FuncionarioController extends HttpServlet {
 		System.out.println("ACAO FUNCIONARIO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("funcionario/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("funcionario/inserir.jsp");
 		}else if(acao.equals("INSERIR FUNCIONARIO")) {
 			String _nome = request.getParameter("nome");
 			String _cpf = request.getParameter("cpf");

@@ -10,46 +10,41 @@
 
 </head>
 <body>
-<form action="../ClienteController" name="formEditar" method="post">
-	<input type="hidden" name="cpfIni" value="<%=cli.getCpf()%>">
-	<table>
-		<tr>
-		<td>
-			<label>NOME: </label>
-			<input type="text" name="nome" value="<%=cli.getNome()%>">
-		</td>
-		</tr>
-		<tr>
-			<td>
-				<label>CPF: </label>
-				<input type="text" name="cpf" value="<%=cli.getCpf()%>">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>DATA DE NASCIMENTO: </label>
-				<input type="text" name="nascimento" value="<%=cli.getDataNascimento().substring(0,10)%>">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>RG: </label>
-				<input type="text" name="rg" value="<%=cli.getRg()%>">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label>ENDERECO: </label>
-				<input type="text" name="endereco" value="<%=cli.getEndereco()%>">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<br/>
-				<input type="submit" name="acao" value="ALTERAR CLIENTE"  class="waves-effect waves-light btn-small">
-			</td>
-		</tr>
-	</table>
-</form>
+	<div class="row" style="margin-top: 50px; margin-left: 25%;">
+		<form class="col s8" action="../ClienteController" name="formEditar" method="post">
+			<input type="hidden" name="cpfIni" value="<%=cli.getCpf()%>">
+			<div class="row">
+				<div class="input-field col s6">
+		          <input type="text" name="nome" value="<%=cli.getNome()%>">
+		          <label>NOME:</label>
+		        </div>
+				<div class="input-field col s6">
+		          <input type="text" name="cpf" maxlength="11" value="<%=cli.getCpf()%>">
+		          <label>CPF:</label>
+		        </div>
+	        </div>
+	        <div class="row">
+				<div class="input-field col s6">
+		          <input type="text" name="rg" value="<%=cli.getRg()%>">
+		          <label>RG:</label>
+		        </div>
+				<div class="input-field col s6">
+		          <input type="text" placeholder="YYYY-MM-DD" maxlength="10" name="nascimento" value="<%=cli.getDataNascimento().substring(0,10)%>">
+		          <label>DATA DE NASCIMENTO:</label>
+		        </div>
+	        </div>
+	        <div class="row">
+		        <div class="input-field col s12">
+		          <input type="text" name="endereco" value="<%=cli.getEndereco()%>">
+		          <label>ENDEREÇO:</label>
+		        </div>
+		     </div>
+			<div style="margin-left: 40%">
+		      	<button class="btn waves-effect waves-light" type="submit" name="acao" value="ALTERAR CLIENTE">ALTERAR
+			   		 <i class="material-icons right">send</i>
+			    </button>
+		    </div>
+		</form>
+	</div> 
 </body>
 </html>

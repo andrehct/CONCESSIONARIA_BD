@@ -43,6 +43,8 @@ public class ClienteController extends HttpServlet {
 		System.out.println("ACAO CLIENTE = " + acao);
 		if(acao == null) {
 			response.sendRedirect("cliente/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("cliente/inserir.jsp");
 		}else if(acao.equals("INSERIR CLIENTE")) {
 			String _nome = request.getParameter("nome");
 			String _cpf = request.getParameter("cpf");

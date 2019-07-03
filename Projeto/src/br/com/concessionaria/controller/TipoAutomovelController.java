@@ -43,6 +43,8 @@ public class TipoAutomovelController extends HttpServlet {
 		System.out.println("ACAO TPAUTO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("tipoAutomovel/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("tipoAutomovel/inserir.jsp");
 		}else if(acao.equals("INSERIR TIPO")) {
 			String _nome = request.getParameter("nome");
 			tpAuto = new TipoAutomovelVO(_nome);

@@ -16,25 +16,31 @@ function remover(cpf, dta){
 		document.formListar.submit();
 	}
 }
+function inserir(){
+	document.formListar.action="../FuncionarioSalarioController?acao=inserir";
+	document.formListar.submit();
+}
 </script>
 </head>
 <body>
 <form action="" name="formListar" method="post">
-    <br/> 
-      <div align="right"><a href="inserir.jsp" class="waves-effect waves-light btn-small"><i class="material-icons left">control_point</i>Cadastrar Salário</a></div>
-    <br/>
-    <table class="collection">
+    <div align="right" style="margin-right: 90px;margin-top: 30px;margin-bottom: 50px">
+      	<button onclick="inserir()" class="btn waves-effect waves-light">CADASTRAR SALÁRIO
+	   		 	<i class="material-icons right">control_point</i>
+	    </button>
+	</div>
+    <table class="striped" style="width: 90%; margin-left: 5%;">
      <thead>
      	<tr>
      	 <th width="30%">Funcionário</th>
-     	 <th width="30%">Salário</th>
+     	 <th width="15%">Salário</th>
      	 <th width="15%">Data Inicial</th>
-     	 <th width="10%" align="right">Ação</th>
+     	 <th width="15%" align="right">Ação</th>
      	</tr>
      </thead> 
     <%for(int i = 0; i < lista.size(); i++){%>
-	<tr <%if(i % 2 == 0){ %> class="collection-item active"<%}else{%><%}%>>
-        <td><%=lista.get(i).getFuncCPF()%></td>
+	<tr>
+        <td><%=DAOFactory.createFuncionarioDAO().consultar(lista.get(i).getFuncCPF()).getNome()%></td>
         <td><%=lista.get(i).getSalario()%></td>
         <td><%=lista.get(i).getDataIni().substring(0,10)%></td>
         <td>

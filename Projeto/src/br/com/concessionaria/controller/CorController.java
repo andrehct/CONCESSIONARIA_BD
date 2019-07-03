@@ -43,6 +43,8 @@ public class CorController extends HttpServlet {
 		System.out.println("ACAO COR = " + acao);
 		if(acao == null) {
 			response.sendRedirect("cor/listar.jsp");
+		}else if(acao.equals("inserir")){
+			response.sendRedirect("cor/inserir.jsp");
 		}else if(acao.equals("INSERIR COR")) {
 			String _nome = request.getParameter("nome");
 			cor = new CorVO(_nome);
