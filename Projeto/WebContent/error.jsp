@@ -44,20 +44,8 @@
     </head>
 
     <body>
-    	<div align="center" class="z-depth-5" style="background: silver;">
-	      	<div class="row" style="margin-left: 33%; margin-top: 10%">
-			    <div class="col s12 m6">
-			      <div class="card blue-grey darken-1">
-			        <div class="card-content white-text">
-			          <span class="card-title" style="color: silver;"><i class="material-icons" style="color: white;">drive_eta</i>   CONCESSIONÁRIA   <i class="material-icons" style="color: white;">drive_eta</i></span>
-			          <p><i class="material-icons" style="color: black;">person</i>     André Heládio de Carvalho Thomas</p>
-			          <p><i class="material-icons" style="color: white;">person</i>     Anne Carolina Borges Gontijo Gomes</p>
-			          <p><i class="material-icons" style="color: black;">person</i>     José Eduardo Lindoso da Fonseca</p>
-			          <p><i class="material-icons" style="color: white;">person</i>     Maria Paula Zanchet</p>
-			        </div>
-			      </div>
-			    </div>
-			  </div>
+    	<div align="center">
+			PAGINA DE ERRO
 		</div>
     </body>
   </html>

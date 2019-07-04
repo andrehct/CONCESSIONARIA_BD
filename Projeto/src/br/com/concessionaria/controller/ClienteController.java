@@ -1,6 +1,6 @@
 package br.com.concessionaria.controller;
 
-import java.io.IOException;
+import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,18 +40,37 @@ public class ClienteController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO CLIENTE = " + acao);
 		if(acao == null) {
 			response.sendRedirect("cliente/listar.jsp");
 		}else if(acao.equals("inserir")){
 			response.sendRedirect("cliente/inserir.jsp");
 		}else if(acao.equals("INSERIR CLIENTE")) {
-			String _nome = request.getParameter("nome");
-			String _cpf = request.getParameter("cpf");
-			String _dataNasc = request.getParameter("nascimento");
-			String _ende = request.getParameter("endereco");
-			String _rg = request.getParameter("rg");
-			cli = new ClienteVO(_cpf, _nome, _ende, _dataNasc, _rg);
+			if(!(request.getParameter("foto").isEmpty())) {
+				 File img = new File(request.getParameter("foto"));
+				 String path = img.getAbsolutePath().replace("\\" , "\\\\");
+				 File imgOk = new File(path);
+				 byte[] imagem = new byte[(int)imgOk.length()];
+				 System.out.println("Lendo " + imgOk.length() + " bytes...");
+				 System.out.println("caminho - " + path);
+				 DataInputStream is = new DataInputStream(
+				 new FileInputStream(imgOk));
+				 is.readFully(imagem);
+				 is.close();
+				String _nome = request.getParameter("nome");
+				String _cpf = request.getParameter("cpf");
+				String _dataNasc = request.getParameter("nascimento");
+				String _ende = request.getParameter("endereco");
+				String _rg = request.getParameter("rg");
+				cli = new ClienteVO(_cpf, _nome, _ende, _dataNasc, _rg, imagem);
+			}
+			else {
+				String _nome = request.getParameter("nome");
+				String _cpf = request.getParameter("cpf");
+				String _dataNasc = request.getParameter("nascimento");
+				String _ende = request.getParameter("endereco");
+				String _rg = request.getParameter("rg");
+				cli = new ClienteVO(_cpf, _nome, _ende, _dataNasc, _rg);
+			}
 			DAOFactory.createClienteDAO().inserir(cli);
 			response.sendRedirect("cliente/listar.jsp");
 		}else if(acao.equals("edit")) {
@@ -65,16 +84,35 @@ public class ClienteController extends HttpServlet {
 			response.sendRedirect("cliente/listar.jsp");
 		}else if(acao.equals("ALTERAR CLIENTE")) {
 			String cpfIni = request.getParameter("cpfIni");
-			String _nome = request.getParameter("nome");
-			String _cpf = request.getParameter("cpf");
-			String _dataNasc = request.getParameter("nascimento");
-			String _ende = request.getParameter("endereco");
-			String _rg = request.getParameter("rg");
-			cli = new ClienteVO(_cpf, _nome, _ende, _dataNasc, _rg);
+			if(!(request.getParameter("foto").isEmpty())) {
+				File img = new File(request.getParameter("foto"));
+				String path = img.getAbsolutePath().replace("\\" , "\\\\");
+				File imgOk = new File(path);
+				byte[] imagem = new byte[(int)imgOk.length()];
+				System.out.println("Lendo " + imgOk.length() + " bytes...");
+				System.out.println("caminho - " + path);
+				DataInputStream is = new DataInputStream(
+				new FileInputStream(imgOk));
+				is.readFully(imagem);
+				is.close();
+				String _nome = request.getParameter("nome");
+				String _cpf = request.getParameter("cpf");
+				String _dataNasc = request.getParameter("nascimento");
+				String _ende = request.getParameter("endereco");
+				String _rg = request.getParameter("rg");
+				cli = new ClienteVO(_cpf, _nome, _ende, _dataNasc, _rg, imagem);
+			}
+			else {
+				String _nome = request.getParameter("nome");
+				String _cpf = request.getParameter("cpf");
+				String _dataNasc = request.getParameter("nascimento");
+				String _ende = request.getParameter("endereco");
+				String _rg = request.getParameter("rg");
+				cli = new ClienteVO(_cpf, _nome, _ende, _dataNasc, _rg);
+			}
 			DAOFactory.createClienteDAO().alterar(cli, cpfIni);
 			response.sendRedirect("cliente/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("cliente/listar.jsp");
 		}
 	}

@@ -40,7 +40,6 @@ public class TipoAutomovelController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO TPAUTO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("tipoAutomovel/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -66,7 +65,6 @@ public class TipoAutomovelController extends HttpServlet {
 			DAOFactory.createTipoAutomovelDAO().alterar(tpAuto, tpAutoIni);
 			response.sendRedirect("tipoAutomovel/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("tipoAutomovel/listar.jsp");
 		}
 	}

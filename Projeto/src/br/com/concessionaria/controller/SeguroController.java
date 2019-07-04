@@ -40,7 +40,6 @@ public class SeguroController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO SEGURO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("seguro/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -70,7 +69,6 @@ public class SeguroController extends HttpServlet {
 			DAOFactory.createSeguroDAO().alterar(seg, idIni);
 			response.sendRedirect("seguro/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("seguro/listar.jsp");
 		}
 	}

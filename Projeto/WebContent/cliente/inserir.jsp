@@ -11,6 +11,11 @@
 		<form class="col s8" action="../ClienteController" name="formInserir" method="post">
 			<div class="row">
 				<div class="input-field col s6">
+					<input type="file" name="foto"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s6">
 		          <input type="text" name="nome">
 		          <label>NOME:</label>
 		        </div>

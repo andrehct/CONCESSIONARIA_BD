@@ -40,7 +40,6 @@ public class ClienteAutomovelController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO CLIENTE AUTOMOVEL = " + acao);
 		if(acao == null) {
 			response.sendRedirect("clienteAuto/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -83,7 +82,6 @@ public class ClienteAutomovelController extends HttpServlet {
 			DAOFactory.createClienteAutomovelDAO().alterar(cliAuto, chassiIni,cpfIni,dataIni);
 			response.sendRedirect("clienteAuto/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("clienteAuto/listar.jsp");
 		}
 	}

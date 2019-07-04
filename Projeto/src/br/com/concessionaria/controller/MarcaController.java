@@ -40,7 +40,6 @@ public class MarcaController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO MARCA = " + acao);
 		if(acao == null) {
 			response.sendRedirect("marca/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -66,7 +65,6 @@ public class MarcaController extends HttpServlet {
 			DAOFactory.createMarcaDAO().alterar(marca, marcaIni);
 			response.sendRedirect("marca/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("marca/listar.jsp");
 		}
 	}

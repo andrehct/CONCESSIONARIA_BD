@@ -24,8 +24,8 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				sql.setLength(0);
 				sql.append("INSERT INTO CLIENTE ");
 				sql.append("([NUM_CPF],[NOM_CLIENTE],[DES_ENDERECO],");
-				sql.append("[DTA_NASCIMENTO],[NUM_RG]) ");
-				sql.append("VALUES (?,?,?,?,?)");
+				sql.append("[DTA_NASCIMENTO],[NUM_RG],[ARQ_FOTO]) ");
+				sql.append("VALUES (?,?,?,?,?,?)");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getCpf());
@@ -33,6 +33,7 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				stmt.setString(3, t.getEndereco());
 				stmt.setString(4, t.getDataNascimento()+"T00:00:00.0");
 				stmt.setString(5, t.getRg());
+				stmt.setBytes(6, t.getFoto());
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -57,16 +58,28 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				sql.append("[DES_ENDERECO] = ?,");
 				sql.append("[DTA_NASCIMENTO] = ?,");
 				sql.append("[NUM_RG] = ? ");
+				if(t.getFoto() != null)
+				{
+					sql.append(",[ARQ_FOTO] = ? ");
+				}
 				sql.append("WHERE [NUM_CPF] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
 				stmt.setString(1, t.getCpf());
 				stmt.setString(2, t.getNome());
 				stmt.setString(3, t.getEndereco());
-				System.out.println("data = " + t.getDataNascimento());
 				stmt.setString(4, t.getDataNascimento()+"T00:00:00.0");
 				stmt.setString(5, t.getRg());
-				stmt.setString(6, CPF[0]);
+				if(t.getFoto() != null)
+				{
+					stmt.setBytes(6, t.getFoto());
+					stmt.setString(7, CPF[0]);
+				}
+				else
+				{
+					stmt.setString(6, CPF[0]);
+				}
+				
 			//Executando a query no banco
 				stmt.executeUpdate();
 			
@@ -115,7 +128,7 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				sql.append("[NOM_CLIENTE],");
 				sql.append("[DES_ENDERECO],");
 				sql.append("[DTA_NASCIMENTO],");
-				sql.append("[NUM_RG] FROM CLIENTE ");
+				sql.append("[NUM_RG], [ARQ_FOTO] FROM CLIENTE ");
 				sql.append("WHERE [NUM_CPF] = ?");
 			//Montando o statement para o banco
 				stmt = conn.prepareStatement(sql.toString());
@@ -130,6 +143,7 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 				cli.setDataNascimento(res.getString("DTA_NASCIMENTO"));
 				cli.setEndereco(res.getString("DES_ENDERECO"));
 				cli.setRg(res.getString("NUM_RG"));
+				cli.setFoto(res.getBytes("ARQ_FOTO"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados do cliente.");
 			ex.printStackTrace();
@@ -164,6 +178,7 @@ public class ClienteDAO implements InterfaceDAO<ClienteVO>{
 					String abc = res.getString("DTA_NASCIMENTO").substring(0,10);
 					String def = res.getString("DTA_NASCIMENTO").substring(10,res.getString("DTA_NASCIMENTO").length());
 					el.setDataNascimento(abc.concat("T").concat(def).replace(" ", ""));
+					el.setFoto(res.getBytes("ARQ_FOTO")); 
 					
 					cli.add(el);
 				}

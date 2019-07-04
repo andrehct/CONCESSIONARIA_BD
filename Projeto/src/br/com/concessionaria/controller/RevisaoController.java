@@ -40,7 +40,6 @@ public class RevisaoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO REVISAO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("revisao/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -84,7 +83,6 @@ public class RevisaoController extends HttpServlet {
 			DAOFactory.createRevisaoDAO().alterar(rev, cpfIni,chassiIni,dtaIni);
 			response.sendRedirect("revisao/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("revisao/listar.jsp");
 		}
 	}

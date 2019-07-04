@@ -40,7 +40,6 @@ public class FuncVendaAutoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO VENDA AUTOMOVEL = " + acao);
 		if(acao == null) {
 			response.sendRedirect("vendaAuto/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -78,7 +77,6 @@ public class FuncVendaAutoController extends HttpServlet {
 			DAOFactory.createFuncVendaAutoDAO().alterar(fva, cpfIni,chassiIni,dtaIni);
 			response.sendRedirect("vendaAuto/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("vendaAuto/listar.jsp");
 		}
 	}

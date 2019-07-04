@@ -5,7 +5,7 @@ public class ClienteVO {
 	private String nome;
 	private String endereco;
 	private String dataNascimento;
-	private String foto;
+	private byte[] foto;
 	private String rg;
 	
 	public ClienteVO() {
@@ -20,7 +20,17 @@ public class ClienteVO {
 		this.dataNascimento = dataNascimento;
 		this.rg = rg;
 	}
-
+	
+	public ClienteVO(String cpf, String nome, String endereco, String dataNascimento, String rg, byte[] foto) {
+		super();
+		this.cpf = cpf;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.dataNascimento = dataNascimento;
+		this.rg = rg;
+		this.foto = foto;
+	}
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -53,11 +63,11 @@ public class ClienteVO {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getFoto() {
+	public byte[] getFoto() {
 		return foto;
 	}
 
-	public void setFoto(String foto) {
+	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
 

@@ -33,7 +33,7 @@ function inserir(){
      <thead>
      	<tr>
      	 <th width="20%">Chassi</th>
-     	 <th width="20%">Modelo</th>
+     	 <th width="20%">Modelo - Ano</th>
      	 <th width="15%">Cor</th>
      	 <th width="15%">Tipo</th>
      	 <th width="10%" align="right">Ação</th>
@@ -42,7 +42,7 @@ function inserir(){
     <%for(int i = 0; i < lista.size(); i++){%>
 	<tr>
         <td><%=lista.get(i).getChassi()%></td>
-        <td><%=DAOFactory.createModeloDAO().consultar(Integer.toString(lista.get(i).getIdModelo())).getNomeModelo()%></td>
+        <td><%=DAOFactory.createModeloDAO().consultar(Integer.toString(lista.get(i).getIdModelo())).getNomeModelo()%> - <%=DAOFactory.createModeloDAO().consultar(Integer.toString(lista.get(i).getIdModelo())).getAno()%></td>
         <td><%=DAOFactory.createCorDAO().consultar(Integer.toString(lista.get(i).getIdCor())).getNomeCor()%></td>
         <td><%=DAOFactory.createTipoAutomovelDAO().consultar(Integer.toString(lista.get(i).getIdTpAuto())).getNome()%></td>
         <td>

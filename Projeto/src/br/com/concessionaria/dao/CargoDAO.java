@@ -32,6 +32,7 @@ public class CargoDAO implements InterfaceDAO<CargoVO>{
 				stmt.executeUpdate();
 			
 		}catch(Exception ex) {
+			
 			System.out.println("Erro ao tentar inserir o cargo.");
 			ex.printStackTrace();
 			

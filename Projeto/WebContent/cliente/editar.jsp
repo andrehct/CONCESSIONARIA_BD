@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>::: Edição de Clientes :::</title>
+<title>::: Edição de Cliente :::</title>
 <%@ include file="../menu.jsp" %>
 
 </head>
@@ -13,6 +13,11 @@
 	<div class="row" style="margin-top: 50px; margin-left: 25%;">
 		<form class="col s8" action="../ClienteController" name="formEditar" method="post">
 			<input type="hidden" name="cpfIni" value="<%=cli.getCpf()%>">
+			<div class="row">
+				<div class="input-field col s6">
+					<input type="file" name="foto"/>
+				</div>
+			</div>
 			<div class="row">
 				<div class="input-field col s6">
 		          <input type="text" name="nome" value="<%=cli.getNome()%>">

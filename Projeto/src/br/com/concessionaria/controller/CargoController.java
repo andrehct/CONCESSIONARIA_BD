@@ -40,7 +40,6 @@ public class CargoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO CARGO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("cargo/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -66,7 +65,6 @@ public class CargoController extends HttpServlet {
 			DAOFactory.createCargoDAO().alterar(cargo, idCargo);
 			response.sendRedirect("cargo/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("cargo/listar.jsp");
 		}
 	}

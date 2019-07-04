@@ -40,7 +40,6 @@ public class SeguroAutomovelController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO SEGURO AUTOMOVEL = " + acao);
 		if(acao == null) {
 			response.sendRedirect("seguroAutomovel/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -80,7 +79,6 @@ public class SeguroAutomovelController extends HttpServlet {
 			DAOFactory.createSeguroAutomovelDAO().alterar(segAuto, idSegIni,chassiIni,dtaIni);
 			response.sendRedirect("seguroAutomovel/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("seguroAutomovel/listar.jsp");
 		}
 	}

@@ -40,7 +40,6 @@ public class ModeloController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO MODELO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("modelo/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -77,7 +76,6 @@ public class ModeloController extends HttpServlet {
 			DAOFactory.createModeloDAO().alterar(mod, modeloIni,marcaIni,_ano);
 			response.sendRedirect("modelo/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("modelo/listar.jsp");
 		}
 	}

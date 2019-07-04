@@ -40,7 +40,6 @@ public class FuncionarioSalarioController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO FUNCIONARIO SALARIO = " + acao);
 		if(acao == null) {
 			response.sendRedirect("funcSal/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -75,7 +74,6 @@ public class FuncionarioSalarioController extends HttpServlet {
 			DAOFactory.createFuncionarioSalarioDAO().alterar(funcSal, cpfIni,dataIni);
 			response.sendRedirect("funcSal/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("funcSal/listar.jsp");
 		}
 	}

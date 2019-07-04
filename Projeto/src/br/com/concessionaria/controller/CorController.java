@@ -40,7 +40,6 @@ public class CorController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String acao = request.getParameter("acao");
-		System.out.println("ACAO COR = " + acao);
 		if(acao == null) {
 			response.sendRedirect("cor/listar.jsp");
 		}else if(acao.equals("inserir")){
@@ -66,7 +65,6 @@ public class CorController extends HttpServlet {
 			DAOFactory.createCorDAO().alterar(cor, idIni);
 			response.sendRedirect("cor/listar.jsp");
 		}else{
-			System.out.println("n deveria");
 			response.sendRedirect("cor/listar.jsp");
 		}
 	}
