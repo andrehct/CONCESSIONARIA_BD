@@ -138,7 +138,6 @@ public class FuncionarioDAO implements InterfaceDAO<FuncionarioVO>{
 				func.setIdCargo(res.getInt("ID_CARGO"));
 				func.setNivel(res.getInt("NUM_NIVEL"));
 				func.setRg(res.getString("NUM_RG"));
-				func.setFoto(res.getString("ARQ_FOTO"));
 		}catch(Exception ex) {
 			System.out.println("Erro ao tentar selecionar dados do funcionário.");
 			ex.printStackTrace();
